@@ -4,5 +4,5 @@ public class Test3 {
 	private int b = 10;
 	private int c = 20;
 	private int e = 4000;
-	private String ooops = "fun";
+	private String ooops = "really fun";
 }
