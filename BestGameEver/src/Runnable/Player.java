@@ -15,4 +15,31 @@ public class Player {
 		_party.add(new Character("Test3"));
 		_party.add(new Character("Test4"));
 	}
+	
+	public boolean addToParty(Character chr){
+		if(_party.size()>3){
+			return false;
+		}else{
+			_party.add(chr);
+			return true;
+		}
+	}
+	
+	public void statusCheck(){
+		Character deadChar = checkHP();
+		while(deadChar != null){
+			_party.remove(deadChar);
+			System.out.println(deadChar.getName() + " has died.");
+			deadChar = checkHP();
+		}
+	}
+	
+	private Character checkHP(){
+		for(Character chr: _party){
+			if(chr.getHealth() < 1){
+				return chr;
+			}
+		}
+		return null;
+	}
 }
