@@ -18,8 +18,10 @@ public class Player {
 	
 	public boolean addToParty(Character chr){
 		if(_party.size()>3){
+			System.out.println("Your party is too full!");
 			return false;
 		}else{
+			System.out.println(chr.getName()+ " has joined the party!");
 			_party.add(chr);
 			return true;
 		}
@@ -41,5 +43,9 @@ public class Player {
 			}
 		}
 		return null;
+	}
+	
+	public ArrayList<Character> getParty(){
+		return _party;
 	}
 }

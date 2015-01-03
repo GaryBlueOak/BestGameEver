@@ -2,8 +2,8 @@ package Runnable;
 
 public class Character {
 	public static int MAX_BASE_HEALTH = 100;
-	public static double BASE_DEFENSE; // the lowest defense possible
-	public static double BASE_ATTACK; // the lowest attack possible
+	public static double BASE_DEFENSE = 1.0; // the lowest defense possible
+	public static double BASE_ATTACK = 1.0; // the lowest attack possible
 	private String _name;
 	private double _attack; 
 	private double _defense;
@@ -50,6 +50,10 @@ public class Character {
 		return _defense;
 	}
 	
+	public boolean isDead(){
+		return _dead;
+	}
+	
 	public void raiseFromDead(){
 		_health = _maxHealth;
 		_dead = false;
@@ -81,14 +85,23 @@ public class Character {
 		return true;
 	}
 	
-	public void attackedByEnemy(Enemy enem){
-		System.out.println(_name + " was attacked by " + enem.getName());
-		System.out.println(loseHealth(enem));
-		if(_health < 0){
-			_health = 0;
-			_dead = true;
-			System.out.println(_name + " has fallen in battle");
+	public boolean attackedByEnemy(Enemy enem){
+		if(!_dead){
+			System.out.println(_name + " was attacked by " + enem.getName());
+			System.out.println(loseHealth(enem));
+			if(_health < 0){
+				_health = 0;
+				_dead = true;
+				System.out.println(_name + " has fallen in battle");
+			}
+			return true;
 		}
+		System.out.println(_name + " is already dead!");
+		return false;
+	}
+	
+	public String checkInfo(){
+		return "\nName: " + _name + "\nHealth: " + _health + "\nAtk: " + _attack + "\nDef: " + _defense;
 	}
 	
 	
