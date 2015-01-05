@@ -10,6 +10,8 @@ public class Character {
 	private int _health;
 	private int _maxHealth;
 	private boolean _dead;
+	private int _positionX;
+	private int _positionY;
 	
 	public Character(String name){
 		_name = name;
