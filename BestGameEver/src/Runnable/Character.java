@@ -20,6 +20,21 @@ public class Character {
 		_health = _maxHealth;
 		_attack = BASE_ATTACK;
 		_defense = BASE_DEFENSE;
+		_positionX = 1;
+		_positionY = 1;
+	}
+	
+	public void setPosition(int x,int y){
+		_positionX = x;
+		_positionY = y;
+	}
+	
+	public int getPositionX(){
+		return _positionX;
+	}
+	
+	public int getPositionY(){
+		return _positionY;
 	}
 	
 	public String getName(){
@@ -103,7 +118,31 @@ public class Character {
 	}
 	
 	public String checkInfo(){
-		return "\nName: " + _name + "\nHealth: " + _health + "\nAtk: " + _attack + "\nDef: " + _defense;
+		String position = "";
+		switch(_positionX){
+		case 1:
+			position += "rear ";
+			break;
+		case 2:
+			position += "center ";
+			break;
+		case 3:
+			position += "vanguard ";
+			break;
+		}
+		switch(_positionY){
+		case 1:
+			position += "top";
+			break;
+		case 2:
+			position += "middle";
+			break;
+		case 3:
+			position += "bottom";
+			break;
+		}
+		return "\nName: " + _name + "\nHealth: " + _health + "\nPosition: " + position;
+		//return "\nName: " + _name + "\nHealth: " + _health + "\nAtk: " + _attack + "\nDef: " + _defense;
 	}
 	
 	

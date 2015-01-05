@@ -8,9 +8,34 @@ public class Enemy {
 	private int _health;
 	private int _gold;
 	private int _exp;
+	private int _position;
 	
 	public Enemy(int enemyID, int difficulty){
 		makeEnemy(enemyID, difficulty);
+	}
+	
+	public void setPosition(int y){
+		_position = y;
+	}
+	
+	public int getPosition(){
+		return _position;
+	}
+	
+	public String location(){
+		String location = "";
+		switch(_position){
+		case 1:
+			location += "on the top!";
+			break;
+		case 2:
+			location += "in the middle!";
+			break;
+		case 3:
+			location += "on the bottom!";
+			break;
+		}
+		return location;
 	}
 	
 	private void makeEnemy(int enemyID, int difficulty){
