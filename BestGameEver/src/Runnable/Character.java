@@ -39,7 +39,7 @@ public class Character {
 			position += "center ";
 			break;
 		case 3:
-			position += "vanguard ";
+			position += "front ";
 			break;
 		}
 		switch(_positionY){
