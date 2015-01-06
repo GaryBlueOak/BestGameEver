@@ -2,6 +2,8 @@ package Runnable;
 
 public class test {
 	
+	private volatile State _currentState;
+	
 	public static void main(String[] args){
 		Player test = new Player();
 		/*for(Character chr: test.getParty()){
@@ -19,13 +21,13 @@ public class test {
 	}
 
 
-private static void battle(Player player, Enemies enemies){
-	System.out.println("\nYou have engaged in battle!");
-	for(Character c: player.getParty()){
-		c.setPosition(2,2);
-		System.out.println(c.checkInfo());
+	private static void battle(Player player, Enemies enemies){
+		System.out.println("\nYou have engaged in battle!");
+			for(Character c: player.getParty()){
+				c.setPosition(2,2);
+				System.out.println(c.checkInfo());
+			}	
 	}
-}
 	
 	
 
