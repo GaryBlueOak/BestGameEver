@@ -1,34 +1,24 @@
 package Runnable;
 
+import javax.swing.JFrame;
+
+
 public class test {
-	
-	private volatile State _currentState;
+	public static final int GAME_WIDTH = 800;
+	public static final int GAME_HEIGHT = 450;
+	public static Game sGame;
 	
 	public static void main(String[] args){
-		Player test = new Player();
-		/*for(Character chr: test.getParty()){
-			System.out.println(chr.checkInfo());
-		}
-		/*for(int i = 1; i <7; i ++){
-			for(int k = 1; k <6; k++){
-				test.getParty().get(0).attackedByEnemy(new Enemy(i,k));
-			}
-		}*/
 		
-		Enemies enemies = new Enemies();
-		battle(test,enemies);
+		JFrame frame = new JFrame("BESTGAME");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false); // Prevents manual resizing of window
+		sGame = new Game(GAME_WIDTH,GAME_HEIGHT);
+		frame.add(sGame);
+		frame.pack();
+		frame.setVisible(true);
 		
 	}
 
-
-	private static void battle(Player player, Enemies enemies){
-		System.out.println("\nYou have engaged in battle!");
-			for(Character c: player.getParty()){
-				c.setPosition(2,2);
-				System.out.println(c.checkInfo());
-			}	
-	}
-	
-	
 
 }

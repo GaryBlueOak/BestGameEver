@@ -29,6 +29,33 @@ public class Character {
 		_positionY = y;
 	}
 	
+	public String getLocation(){
+		String position = "";
+		switch(_positionX){
+		case 1:
+			position += "rear ";
+			break;
+		case 2:
+			position += "center ";
+			break;
+		case 3:
+			position += "vanguard ";
+			break;
+		}
+		switch(_positionY){
+		case 1:
+			position += "bottom";
+			break;
+		case 2:
+			position += "middle";
+			break;
+		case 3:
+			position += "top";
+			break;
+		}
+		return position;
+	}
+	
 	public int getPositionX(){
 		return _positionX;
 	}
@@ -118,30 +145,7 @@ public class Character {
 	}
 	
 	public String checkInfo(){
-		String position = "";
-		switch(_positionX){
-		case 1:
-			position += "rear ";
-			break;
-		case 2:
-			position += "center ";
-			break;
-		case 3:
-			position += "vanguard ";
-			break;
-		}
-		switch(_positionY){
-		case 1:
-			position += "top";
-			break;
-		case 2:
-			position += "middle";
-			break;
-		case 3:
-			position += "bottom";
-			break;
-		}
-		return "\nName: " + _name + "\nHealth: " + _health + "\nPosition: " + position;
+		return "\nName: " + _name + "\nHealth: " + _health + "\nPosition: " + this.getLocation();
 		//return "\nName: " + _name + "\nHealth: " + _health + "\nAtk: " + _attack + "\nDef: " + _defense;
 	}
 	

@@ -6,7 +6,13 @@ public class AttackState extends State {
 
 	@Override
 	public void onKeyPress(KeyEvent E) {
-		// TODO Auto-generated method stub
+		System.out.println("You are attacking!");
+		
+	}
+
+	@Override
+	public void init() {
+		System.out.println("ATTACK PHASE");
 		
 	}
 

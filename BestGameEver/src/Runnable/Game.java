@@ -7,20 +7,34 @@ import java.awt.Image;
 
 import javax.swing.JPanel;
 
-
 public class Game extends JPanel implements Runnable {
 	private Thread gameThread;
 	private volatile boolean running;
 	private volatile State currentState;
+	private int gameWidth;
+	private int gameHeight;
 
 	private InputHandler inputHandler;
 
 	public Game(int gameWidth, int gameHeight) {
-		
+		this.gameWidth = gameWidth;
+		this.gameHeight = gameHeight;
+		setPreferredSize(new Dimension(gameWidth, gameHeight));
+		setBackground(Color.BLACK);
+		setFocusable(true);
+		requestFocus();
+	}
+	      
+	public void addNotify() {
+		super.addNotify();
+		initInput();
+		setCurrentState(new MenuState(new Player()));
+		initGame();
 	}
 
 	public void setCurrentState(State newState) {
 		System.gc();
+		newState.init();
 		currentState = newState;
 		inputHandler.setCurrentState(currentState);
 	}

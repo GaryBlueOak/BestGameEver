@@ -16,7 +16,7 @@ public class Enemies {
 			enemy = new Enemy(randomGenerator.nextInt(6)+1,randomGenerator.nextInt(5)+1);
 			enemy.setPosition(i+1);
 			_enemies.add(enemy);
-			System.out.println("\n"+enemy.getName()+" has taken position " + enemy.location());
+			System.out.println(enemy.getName()+" has taken position " + enemy.location());
 		}
 		
 	}
