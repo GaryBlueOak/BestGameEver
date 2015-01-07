@@ -189,7 +189,6 @@ public class Enemy {
 		
 		Random generator = new Random();
 		int number = generator.nextInt(100);
-		System.out.println("the random number is "+ number);
 		if(number < 75) attackPosition = 3;
 		else if(number >=75 && number <95) attackPosition = 2;
 		else attackPosition = 1;
