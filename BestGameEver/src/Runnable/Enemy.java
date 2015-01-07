@@ -189,6 +189,7 @@ public class Enemy {
 		
 		Random generator = new Random();
 		int number = generator.nextInt(100);
+		System.out.println("the random number is "+ number);
 		if(number < 75) attackPosition = 3;
 		else if(number >=75 && number <95) attackPosition = 2;
 		else attackPosition = 1;
@@ -204,8 +205,8 @@ public class Enemy {
 			if(!foundTarget) attackPosition--;
 		}
 		
-		int targetIndex = generator.nextInt(p.getParty().size());
-		p.getParty().get(targetIndex).attackedByEnemy(this);
+		int targetIndex = generator.nextInt(targets.size());
+		targets.get(targetIndex).attackedByEnemy(this);
 	}
 	
 	public String loseHealth(int damage){
