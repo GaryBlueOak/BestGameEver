@@ -2,8 +2,8 @@ package Runnable;
 
 public class Character {
 	public static int MAX_BASE_HEALTH = 100;
-	public static double BASE_DEFENSE = 1.0; // the lowest defense possible
-	public static double BASE_ATTACK = 1.0; // the lowest attack possible
+	public static double BASE_DEFENSE = 4.0; // the lowest defense possible
+	public static double BASE_ATTACK = 15.0; // the lowest attack possible
 	private String _name;
 	private double _attack; 
 	private double _defense;
@@ -20,8 +20,8 @@ public class Character {
 		_health = _maxHealth;
 		_attack = BASE_ATTACK;
 		_defense = BASE_DEFENSE;
-		_positionX = 1;
-		_positionY = 1;
+		_positionX = 2;
+		_positionY = 2;
 	}
 	
 	public void setPosition(int x,int y){
@@ -66,6 +66,30 @@ public class Character {
 	
 	public String getName(){
 		return _name;
+	}
+	
+	public void normalAttack(Enemies e){
+		boolean succesful = false;
+		System.out.print(_name + " charges into battle... ");
+		for(Enemy enemy: e.getEnemies()){
+			if((enemy.getPosition()==_positionY)&&(!enemy.isDead())){
+				succesful = true;
+				int damage = (int)(_attack - enemy.getDefense());
+				System.out.println(enemy.loseHealth(damage));
+				if(enemy.isDead()){
+					System.out.println(enemy.getName() + " was killed!");
+				}
+			}
+		}
+		if(!succesful) System.out.println("attack missed!");
+	}
+	
+	public void specialAttack(Enemies e){
+		
+	}
+	
+	public void useItem(Enemies e){
+		
 	}
 	
 	public void trainAttack(double raised){

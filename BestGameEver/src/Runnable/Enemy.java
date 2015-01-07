@@ -1,4 +1,7 @@
 package Runnable;
+import java.lang.Math;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Enemy {
 	
@@ -9,9 +12,11 @@ public class Enemy {
 	private int _gold;
 	private int _exp;
 	private int _position;
+	private boolean _dead;
 	
 	public Enemy(int enemyID, int difficulty){
 		makeEnemy(enemyID, difficulty);
+		_dead = false;
 	}
 	
 	public void setPosition(int y){
@@ -22,17 +27,21 @@ public class Enemy {
 		return _position;
 	}
 	
+	public boolean isDead(){
+		return _dead;
+	}
+	
 	public String location(){
 		String location = "";
 		switch(_position){
 		case 1:
-			location += "on the top!";
+			location += "on the bottom!";
 			break;
 		case 2:
 			location += "in the middle!";
 			break;
 		case 3:
-			location += "on the bottom!";
+			location += "on the top!";
 			break;
 		}
 		return location;
@@ -172,6 +181,42 @@ public class Enemy {
 		}
 		
 		return nameModifier;
+	}
+	
+	public void attack(Player p){
+		int attackPosition;
+		ArrayList<Character> targets = new ArrayList<Character>();
+		
+		Random generator = new Random();
+		int number = generator.nextInt(100);
+		if(number < 75) attackPosition = 3;
+		else if(number >=75 && number <95) attackPosition = 2;
+		else attackPosition = 1;
+		boolean foundTarget = false;
+		
+		while(!foundTarget){
+			for(Character c: p.getParty()){
+				if((c.getPositionX()==attackPosition)&&(!c.isDead())){
+					targets.add(c);
+					foundTarget = true;
+				}
+			}
+			if(!foundTarget) attackPosition--;
+		}
+		
+		int targetIndex = generator.nextInt(p.getParty().size());
+		p.getParty().get(targetIndex).attackedByEnemy(this);
+	}
+	
+	public String loseHealth(int damage){
+		if(damage > 0){
+			_health = Math.max((_health - damage),0);
+			if(_health==0){
+				_dead = true;
+			}
+			return(_name + " took " + damage + " damage!");
+		}
+		else return (_name + " defended the attack!");
 	}
 	
 	public String checkInfo(){

@@ -10,10 +10,10 @@ public class Player {
 	public Player(){
 		_gold = 100;
 		_party = new ArrayList<Character>();
-		_party.add(new Character("Test1"));
-		_party.add(new Character("Test2"));
-		_party.add(new Character("Test3"));
-		_party.add(new Character("Test4"));
+		_party.add(new Character("Marth"));
+		_party.add(new Character("Ike"));
+		_party.add(new Character("Roy"));
+		_party.add(new Character("Lynn"));
 	}
 	
 	public boolean addToParty(Character chr){

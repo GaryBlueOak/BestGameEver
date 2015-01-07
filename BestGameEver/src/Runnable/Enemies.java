@@ -21,6 +21,15 @@ public class Enemies {
 		
 	}
 	
+	public void attack(Player p){
+		System.out.println();
+		for(Enemy enemy: _enemies){
+			if(!enemy.isDead()){
+				enemy.attack(p);
+			}
+		}
+	}
+	
 	public ArrayList<Enemy> getEnemies(){
 		return _enemies;
 		

@@ -11,5 +11,11 @@ public abstract class State {
 	public void setCurrentState(State newState) {
 		test.sGame.setCurrentState(newState);
 	}
+	
+	public void showInfo(Player p){
+		for(Character c: p.getParty()){
+			System.out.println(c.checkInfo());
+		}
+	}
 
 }
