@@ -1,8 +1,10 @@
-package Runnable;
+package main;
 
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import state.State;
 
 
 public class InputHandler implements KeyListener {

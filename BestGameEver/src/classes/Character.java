@@ -1,8 +1,8 @@
-package Runnable;
+package classes;
 
 public class Character {
-	public static int MAX_BASE_HEALTH = 10;
-	public static double BASE_DEFENSE = 4.0; // the lowest defense possible
+	public static int MAX_BASE_HEALTH = 20;
+	public static double BASE_DEFENSE = 5.0; // the lowest defense possible
 	public static double BASE_ATTACK = 15.0; // the lowest attack possible
 	private String _name;
 	private double _attack; 
@@ -155,7 +155,7 @@ public class Character {
 	
 	public boolean attackedByEnemy(Enemy enem){
 		if(!_dead){
-			System.out.println(_name + " was attacked by " + enem.getName());
+			System.out.print(_name + " was attacked by " + enem.getName() + "... ");
 			System.out.println(loseHealth(enem));
 			if(_health <= 0){
 				_health = 0;

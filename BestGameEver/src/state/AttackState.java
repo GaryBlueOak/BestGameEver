@@ -1,13 +1,18 @@
-package Runnable;
+package state;
 
 import java.awt.event.KeyEvent;
 import java.util.Iterator;
+
+import classes.Character;
+import classes.Enemies;
+import classes.Enemy;
+import classes.Player;
 
 public class AttackState extends State {
 	
 	private Player _player;
 	private Enemies _enemies;
-	private Iterator _itr;
+	private Iterator<Character> _itr;
 	private Character _c;
 	boolean victory = false;
 	
@@ -40,7 +45,7 @@ public class AttackState extends State {
 		else{
 		
 			if(_itr.hasNext()){
-				_c = (Character)_itr.next();
+				_c = _itr.next();
 				if(_c.isDead() && !_itr.hasNext()){
 					enemyPhase();
 				}
@@ -61,9 +66,9 @@ public class AttackState extends State {
 	public void init() {
 		System.out.println("ATTACK PHASE ** PRESS RIGHT ARROW TO ATTACK OR SPACE TO SHOW INFO");
 		_itr = _player.getParty().iterator();
-		_c = (Character)_itr.next();
+		_c = _itr.next();
 		while(_c.isDead()){
-			_c = (Character)_itr.next();
+			_c = _itr.next();
 		}
 		
 	}

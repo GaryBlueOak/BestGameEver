@@ -1,7 +1,11 @@
-package Runnable;
+package state;
 
 import java.awt.event.KeyEvent;
 import java.util.Iterator;
+
+import classes.Character;
+import classes.Enemies;
+import classes.Player;
 
 public class MovementState extends State {
 	

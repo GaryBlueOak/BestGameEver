@@ -1,6 +1,10 @@
-package Runnable;
+package state;
 
 import java.awt.event.KeyEvent;
+
+import classes.Character;
+import classes.Enemies;
+import classes.Player;
 
 public class MenuState extends State {
 
