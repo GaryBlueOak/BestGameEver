@@ -21,13 +21,14 @@ public class Enemies {
 		
 	}
 	
-	public void attack(Player p){
+	public boolean attack(Player p){
 		System.out.println();
 		for(Enemy enemy: _enemies){
 			if(!enemy.isDead()){
-				enemy.attack(p);
+				if(!enemy.attack(p)) return false;
 			}
 		}
+		return true;
 	}
 	
 	public ArrayList<Enemy> getEnemies(){

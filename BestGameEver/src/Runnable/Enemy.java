@@ -183,17 +183,29 @@ public class Enemy {
 		return nameModifier;
 	}
 	
-	public void attack(Player p){
+	public boolean attack(Player p){
 		int attackPosition;
+		boolean position1Checked = false;
+		boolean position2Checked = false;
+		boolean position3Checked = false;
 		ArrayList<Character> targets = new ArrayList<Character>();
 		
 		Random generator = new Random();
 		int number = generator.nextInt(100);
-		if(number < 75) attackPosition = 3;
-		else if(number >=75 && number <95) attackPosition = 2;
-		else attackPosition = 1;
-		boolean foundTarget = false;
+		if(number < 75){
+			attackPosition = 3;
+			position3Checked = true;
+		}
+		else if(number >= 75 && number < 95){
+			attackPosition = 2;
+			position2Checked = true;
+		}
+		else{
+			attackPosition = 1;
+			position1Checked = true;
+		}
 		
+		boolean foundTarget = false;
 		while(!foundTarget){
 			for(Character c: p.getParty()){
 				if((c.getPositionX()==attackPosition)&&(!c.isDead())){
@@ -201,11 +213,33 @@ public class Enemy {
 					foundTarget = true;
 				}
 			}
-			if(!foundTarget) attackPosition--;
+			if(!foundTarget){
+				if(position1Checked && position2Checked && position3Checked){
+					return false;
+				}
+				else{
+					if(!position3Checked){
+						attackPosition = 3;
+						position3Checked = true;
+					}
+					else if(!position2Checked){
+						attackPosition = 2;
+						position2Checked = true;
+					}
+					else{
+						attackPosition = 1;
+						position1Checked = true;
+					}
+						
+				}
+				
+			}
+		
 		}
 		
 		int targetIndex = generator.nextInt(targets.size());
 		targets.get(targetIndex).attackedByEnemy(this);
+		return true;
 	}
 	
 	public String loseHealth(int damage){

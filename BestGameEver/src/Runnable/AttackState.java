@@ -8,6 +8,7 @@ public class AttackState extends State {
 	private Player _player;
 	private Enemies _enemies;
 	private Iterator _itr;
+	private Character _c;
 	boolean victory = false;
 	
 	public AttackState(Player p,Enemies e){
@@ -18,51 +19,81 @@ public class AttackState extends State {
 	@Override
 	public void onKeyPress(KeyEvent E) {
 		if(E.getKeyCode()==KeyEvent.VK_RIGHT){
-			Character c = (Character)_itr.next();
-			c.normalAttack(_enemies);
+			_c.normalAttack(_enemies);
 		}
 		else if (E.getKeyCode()==KeyEvent.VK_UP){
-			Character c = (Character)_itr.next();
-			c.specialAttack(_enemies);
+			_c.specialAttack(_enemies);
 		}
 		else if (E.getKeyCode()==KeyEvent.VK_DOWN){
-			Character c = (Character)_itr.next();
-			c.useItem(_enemies);
+			_c.useItem(_enemies);
 		}
 		else if (E.getKeyCode()==KeyEvent.VK_LEFT){
-			Character c = (Character)_itr.next();
 		}
 		else if(E.getKeyCode()==KeyEvent.VK_SPACE){
 			showInfo(_player);
 		}
 		
-		if(checkVictory(_enemies)){
+		if(victory()){
 			System.out.println("You are victorious!");
 			setCurrentState(new MenuState(_player));
 		}
+		else{
 		
-		if(!_itr.hasNext()){
-			_enemies.attack(_player);
-			setCurrentState(new MovementState(_player,_enemies));
+			if(_itr.hasNext()){
+				_c = (Character)_itr.next();
+				if(_c.isDead() && !_itr.hasNext()){
+					enemyPhase();
+				}
+				while(_c.isDead() && _itr.hasNext()){
+					_c = (Character)_itr.next();
+					if(_c.isDead() && !_itr.hasNext()){
+						enemyPhase();
+					}
+				}
+			}
+			else{
+				enemyPhase();
+			}
 		}
-		
 	}
 
 	@Override
 	public void init() {
 		System.out.println("ATTACK PHASE ** PRESS RIGHT ARROW TO ATTACK OR SPACE TO SHOW INFO");
 		_itr = _player.getParty().iterator();
+		_c = (Character)_itr.next();
+		while(_c.isDead()){
+			_c = (Character)_itr.next();
+		}
 		
 	}
 	
-	private boolean checkVictory(Enemies e){
+	private boolean victory(){
 		boolean victory = true;
-		for(Enemy enemy: e.getEnemies()){
+		for(Enemy enemy: _enemies.getEnemies()){
 			if(!enemy.isDead()){
 				victory = false;
 			}
 		}
 		return victory;
 	}
-
+	
+	private boolean defeat(){
+		boolean defeat = true;
+		for(Character c: _player.getParty()){
+			if(!c.isDead()){
+				defeat = false;
+			}
+		}
+		return defeat;
+	}
+	
+	private void enemyPhase(){
+		if(_enemies.attack(_player) && !defeat()){
+			setCurrentState(new MovementState(_player,_enemies));
+		}
+		else{
+			setCurrentState(new GameOverState());
+		}
+	}
 }

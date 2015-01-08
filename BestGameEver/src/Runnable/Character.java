@@ -1,7 +1,7 @@
 package Runnable;
 
 public class Character {
-	public static int MAX_BASE_HEALTH = 100;
+	public static int MAX_BASE_HEALTH = 10;
 	public static double BASE_DEFENSE = 4.0; // the lowest defense possible
 	public static double BASE_ATTACK = 15.0; // the lowest attack possible
 	private String _name;
@@ -157,7 +157,7 @@ public class Character {
 		if(!_dead){
 			System.out.println(_name + " was attacked by " + enem.getName());
 			System.out.println(loseHealth(enem));
-			if(_health < 0){
+			if(_health <= 0){
 				_health = 0;
 				_dead = true;
 				System.out.println(_name + " has fallen in battle");
