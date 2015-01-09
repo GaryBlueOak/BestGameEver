@@ -1,4 +1,7 @@
-package classes;
+package main;
+import items.Coin;
+import items.Item;
+import specialattacks.*;
 
 public class Character {
 	public static int MAX_BASE_HEALTH = 20;
@@ -12,6 +15,8 @@ public class Character {
 	private boolean _dead;
 	private int _positionX;
 	private int _positionY;
+	private SpecialAttack _special;
+	private Item _item;
 	
 	public Character(String name){
 		_name = name;
@@ -27,6 +32,14 @@ public class Character {
 	public void setPosition(int x,int y){
 		_positionX = x;
 		_positionY = y;
+	}
+	
+	public void setSpecial(SpecialAttack s){
+		_special = s;
+		if(s.getOwner()!=null){
+			s.getOwner().setSpecial(new Splash());
+		}
+		s.setOwner(this);
 	}
 	
 	public String getLocation(){
@@ -85,11 +98,19 @@ public class Character {
 	}
 	
 	public void specialAttack(Enemies e){
-		
+		_special.use(this, e);
+	}
+	
+	public void setItem(Item i){
+		_item = i;
+		if(i.getOwner()!=null){
+			i.getOwner().setItem(new Coin());
+		}	
+		i.setOwner(this);
 	}
 	
 	public void useItem(Enemies e){
-		
+		_item.use(this, e);
 	}
 	
 	public void trainAttack(double raised){
@@ -169,9 +190,15 @@ public class Character {
 	}
 	
 	public String checkInfo(){
-		return "\nName: " + _name + "\nHealth: " + _health + "\nPosition: " + this.getLocation();
+		return _name + "   Health: " + _health + "   Position: " + this.getLocation();
 		//return "\nName: " + _name + "\nHealth: " + _health + "\nAtk: " + _attack + "\nDef: " + _defense;
 	}
+	
+	public String checkStatus(){
+		return _name + "   HP: " + _health + "   Item: " + _item.getName() + "   Special: " + _special.getName();
+	}
+
+	
 	
 	
 	

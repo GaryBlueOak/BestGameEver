@@ -1,12 +1,8 @@
-package state;
+package main;
+
 
 import java.awt.event.KeyEvent;
 import java.util.Iterator;
-
-import classes.Character;
-import classes.Enemies;
-import classes.Enemy;
-import classes.Player;
 
 public class AttackState extends State {
 	
@@ -33,8 +29,6 @@ public class AttackState extends State {
 			_c.useItem(_enemies);
 		}
 		else if (E.getKeyCode()==KeyEvent.VK_LEFT){
-		}
-		else if(E.getKeyCode()==KeyEvent.VK_SPACE){
 			showInfo(_player);
 		}
 		
@@ -64,7 +58,7 @@ public class AttackState extends State {
 
 	@Override
 	public void init() {
-		System.out.println("ATTACK PHASE ** PRESS RIGHT ARROW TO ATTACK OR SPACE TO SHOW INFO");
+		System.out.println("ATTACK PHASE **   attack: right   special: up   item: down   info: left ");
 		_itr = _player.getParty().iterator();
 		_c = _itr.next();
 		while(_c.isDead()){

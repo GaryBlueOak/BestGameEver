@@ -1,4 +1,6 @@
-package classes;
+package main;
+
+
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Random;

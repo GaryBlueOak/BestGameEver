@@ -1,11 +1,8 @@
-package state;
+package main;
+
 
 import java.awt.event.KeyEvent;
 import java.util.Iterator;
-
-import classes.Character;
-import classes.Enemies;
-import classes.Player;
 
 public class MovementState extends State {
 	
@@ -71,7 +68,7 @@ public class MovementState extends State {
 
 	@Override
 	public void init() {
-		System.out.println("MOVEMENT PHASE **  PRESS ARROW KEYS TO MOVE OR SPACE TO HOLD POSITION");
+		System.out.println("MOVEMENT PHASE **   move: arrow keys   hold: space");
 		_itr = _player.getParty().iterator();
 		_c = (Character)_itr.next();
 		while(_c.isDead()){

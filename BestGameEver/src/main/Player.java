@@ -1,19 +1,37 @@
-package classes;
+package main;
+
+
+
+import items.Coin;
 
 import java.util.ArrayList;
 
+import specialattacks.*;
+import items.*;
+
+
 public class Player {
 	private ArrayList<Character> _party;
+	private ArrayList<SpecialAttack> _specials;
+	private ArrayList<Item> _items;
 	public static int MAX_PARTY_SIZE = 4;
 	private int _gold;
 	
 	public Player(){
 		_gold = 100;
+		_specials = new ArrayList<SpecialAttack>();
+		_items = new ArrayList<Item>();
+		_specials.add(new Splash());
+		_items.add(new Coin());
 		_party = new ArrayList<Character>();
-		_party.add(new Character("Marth"));
+		_party.add(new Character("Rob"));
 		_party.add(new Character("Ike"));
 		_party.add(new Character("Roy"));
-		_party.add(new Character("Lynn"));
+		_party.add(new Character("Lyn"));
+		for(Character c: _party){
+			c.setSpecial(new Splash());
+			c.setItem(new Coin());
+		}
 	}
 	
 	public boolean addToParty(Character chr){
@@ -25,6 +43,30 @@ public class Player {
 			_party.add(chr);
 			return true;
 		}
+	}
+	
+	public int getGold(){
+		return _gold;
+	}
+	
+	public void setGold(int gold){
+		_gold = gold;
+	}
+	
+	public void addSpecial(SpecialAttack s){
+		_specials.add(s);
+	}
+	
+	public void addItem(Item i){
+		_items.add(i);
+	}
+	
+	public ArrayList<SpecialAttack> getSpecials(){
+		return _specials;
+	}
+	
+	public ArrayList<Item> getItems(){
+		return _items;
 	}
 	
 	public void statusCheck(){
