@@ -22,7 +22,7 @@ public class Enemies {
 		}
 		
 	}
-	
+	//possible 3x2 enemy box (up to 6 enemies)
 	public boolean attack(Player p){
 		System.out.println();
 		for(Enemy enemy: _enemies){
