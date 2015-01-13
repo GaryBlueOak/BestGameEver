@@ -44,7 +44,7 @@ public class AttackState extends State {
 					enemyPhase();
 				}
 				while(_c.isDead() && _itr.hasNext()){
-					_c = (Character)_itr.next();
+					_c =_itr.next();
 					if(_c.isDead() && !_itr.hasNext()){
 						enemyPhase();
 					}
