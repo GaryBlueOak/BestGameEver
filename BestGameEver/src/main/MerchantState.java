@@ -20,7 +20,8 @@ public class MerchantState extends State {
 
 	@Override
 	public void init() {
-		System.out.println("Welcome to the merchant. Press up and down to browse and ENTER to purchase. Press right to check funds.");
+		System.out.println("Welcome to the merchant!\nPress up and down to browse and ENTER to purchase."
+				+ "\nPress right to check funds.\nPress 'J' to see all available goods.");
 		System.out.println("Press space when you are done.");
 	}
 
@@ -44,6 +45,10 @@ public class MerchantState extends State {
 		if(E.getKeyCode()==KeyEvent.VK_RIGHT){
 			System.out.println("You have " + _player.getGold() + "g");
 		}
+		if(E.getKeyChar()=='j'){
+
+			printShop();
+		}
 		
 		if(E.getKeyCode()==KeyEvent.VK_ENTER){
 			if(_item!=null){
@@ -61,6 +66,14 @@ public class MerchantState extends State {
 			setCurrentState(new MenuState(_player));
 		}
 		
+	}
+	
+	public void printShop(){
+		System.out.flush();
+		System.out.println("\n\nAvalable Goods:");
+		for(Item item: _goods){
+			System.out.println(item.getName() + "\t\t" + item.getCost() + "g");
+		}
 	}
 
 }
