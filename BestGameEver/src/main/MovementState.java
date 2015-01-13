@@ -14,6 +14,7 @@ public class MovementState extends State {
 	public MovementState(Player p, Enemies e){
 		_player = p;
 		_enemies = e;
+		showBattleField();
 	}
 
 	@Override
@@ -49,6 +50,7 @@ public class MovementState extends State {
 		
 		if(_itr.hasNext()){
 			_c = (Character)_itr.next();
+			showBattleField();
 			if(_c.isDead() && !_itr.hasNext()){
 				setCurrentState(new AttackState(_player,_enemies));
 			}
@@ -58,12 +60,38 @@ public class MovementState extends State {
 					setCurrentState(new AttackState(_player,_enemies));
 				}
 			}
+			System.out.println(_c.getName() + "'s move!");
 		}
 		else{
+			showBattleField();
 			setCurrentState(new AttackState(_player,_enemies));
 		}
 		
 		
+	}
+	
+	public void showBattleField(){
+		String[][] map = new String[4][3];
+		System.out.println("/////// BattleField ////////\n");
+		for(Character character: _player.getParty()){
+			map[character.getPositionX()-1][character.getPositionY()-1] = character.getName().substring(0,1);
+		}
+		for(Enemy enemy: _enemies.getEnemies()){
+			map[3][enemy.getPosition()-1] = enemy.getName().substring(0,1);
+		}
+		for(int i = 2; i >= 0; i --){
+			for(int k = 0; k < 4; k ++){
+				if(k == 3){
+					System.out.print("\t");
+				}
+				if(map[k][i] == null){
+					System.out.print("[]");
+				}else{
+					System.out.print(map[k][i]);
+				}
+			}
+			System.out.println();
+		}
 	}
 
 	@Override
@@ -74,6 +102,7 @@ public class MovementState extends State {
 		while(_c.isDead()){
 			_c = (Character)_itr.next();
 		}
+		System.out.println(_c.getName() + "'s move!");
 		
 	}
 
