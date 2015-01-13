@@ -16,18 +16,26 @@ public class Player {
 	private ArrayList<Item> _items;
 	public static int MAX_PARTY_SIZE = 4;
 	private int _gold;
+	//private Character[][] _battleBoard;
 	
 	public Player(){
+//		_battleBoard = new Character[3][3];
 		_gold = 100;
 		_specials = new ArrayList<SpecialAttack>();
 		_items = new ArrayList<Item>();
 		_specials.add(new Splash());
 		_items.add(new Coin());
 		_party = new ArrayList<Character>();
-		_party.add(new Character("Rob"));
+		_party.add(new Character("Eliwood"));
 		_party.add(new Character("Ike"));
 		_party.add(new Character("Roy"));
 		_party.add(new Character("Lyn"));
+		//
+		_party.get(0).setPosition(0, 1);
+		_party.get(1).setPosition(1,0);
+		_party.get(2).setPosition(1,2);
+		_party.get(3).setPosition(2,1);
+		//
 		for(Character c: _party){
 			c.setSpecial(new Splash());
 			c.setItem(new Coin());
@@ -59,6 +67,17 @@ public class Player {
 	
 	public void addItem(Item i){
 		_items.add(i);
+	}
+	
+	public Character[][] getBattleBoard(){
+		return updateBattleBoard();
+	}
+	private Character[][] updateBattleBoard(){
+		Character[][] battleBoard = new Character[3][3];
+		for(Character character: _party){
+			battleBoard[character.getPositionX()][character.getPositionY()] = character;
+		}
+		return battleBoard;
 	}
 	
 	public ArrayList<SpecialAttack> getSpecials(){

@@ -67,25 +67,25 @@ public class Character {
 	public String getLocation(){
 		String position = "";
 		switch(_positionX){
-		case 1:
+		case 0:
 			position += "rear ";
 			break;
-		case 2:
+		case 1:
 			position += "center ";
 			break;
-		case 3:
+		case 2:
 			position += "front ";
 			break;
 		}
 		switch(_positionY){
-		case 1:
-			position += "bottom";
+		case 0:
+			position += "top";
 			break;
-		case 2:
+		case 1:
 			position += "middle";
 			break;
-		case 3:
-			position += "top";
+		case 2:
+			position += "bottom";
 			break;
 		}
 		return position;
