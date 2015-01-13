@@ -17,6 +17,7 @@ public class Character {
 	private int _positionY;
 	private SpecialAttack _special;
 	private Item _item;
+	private Item _equipped;
 	
 	public Character(String name){
 		_name = name;
@@ -40,6 +41,27 @@ public class Character {
 			s.getOwner().setSpecial(new Splash());
 		}
 		s.setOwner(this);
+	}
+	
+	public boolean equipItem(Item item){
+		if(item.isEquipable()){
+			if(_equipped == null){
+				_equipped = item;
+			}else{
+				System.out.println(_name + " already has a " + item.getName() + " equipped!");
+				return false;
+			}
+			return true;
+		}
+		System.out.println(item.getName() + " is not an equippable item.");
+		return false;
+	}
+	
+	public Item unequipItem(){
+		Item toReturn = _equipped;
+		_equipped = null;
+		System.out.println(_name + " has unequipped a " + toReturn.getName());
+		return toReturn;
 	}
 	
 	public String getLocation(){
