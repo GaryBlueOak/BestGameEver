@@ -26,6 +26,8 @@ public abstract class Item {
 	public abstract int getCost();
 	
 	public abstract String getInfo();
+	
+	public abstract boolean isEquipable();
 
 
 }

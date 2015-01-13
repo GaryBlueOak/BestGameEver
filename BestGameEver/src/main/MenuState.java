@@ -24,9 +24,9 @@ public class MenuState extends State {
 		if(E.getKeyCode()==KeyEvent.VK_SPACE){
 			System.out.println("You have chosen to battle.");
 			Enemies enemies = new Enemies();
-			for(Character c : _player.getParty()){
-				c.setPosition(2,2);
-			}
+//			for(Character c : _player.getParty()){
+//				c.setPosition(2,2);
+//			}
 			setCurrentState(new MovementState(_player,enemies));
 		}
 		if(E.getKeyCode()==KeyEvent.VK_UP){

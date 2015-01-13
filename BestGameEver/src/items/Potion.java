@@ -42,4 +42,10 @@ public class Potion extends Item {
 		return null;
 	}
 
+	@Override
+	public boolean isEquipable() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

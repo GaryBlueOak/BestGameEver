@@ -103,4 +103,10 @@ public class Sword extends Item{
 				break;
 			}
 		}
+
+	@Override
+	public boolean isEquipable() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

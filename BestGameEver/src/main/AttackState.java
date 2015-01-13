@@ -40,6 +40,7 @@ public class AttackState extends State {
 		
 			if(_itr.hasNext()){
 				_c = _itr.next();
+				
 				if(_c.isDead() && !_itr.hasNext()){
 					enemyPhase();
 				}
@@ -49,6 +50,7 @@ public class AttackState extends State {
 						enemyPhase();
 					}
 				}
+				System.out.println(_c.getName() + "'s move!");
 			}
 			else{
 				enemyPhase();
@@ -61,9 +63,11 @@ public class AttackState extends State {
 		System.out.println("ATTACK PHASE **   attack: right   special: up   item: down   info: left ");
 		_itr = _player.getParty().iterator();
 		_c = _itr.next();
+		
 		while(_c.isDead()){
 			_c = _itr.next();
 		}
+		System.out.println(_c.getName() + "'s move!");
 		
 	}
 	
