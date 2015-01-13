@@ -52,4 +52,7 @@ public class MenuState extends State {
 		
 	}
 
+	//scout to look for other recruits
+	//day to day interactions, training etc until some event
+	//chance of random event each day, or after x amount of days
 }
