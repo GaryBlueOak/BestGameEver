@@ -124,31 +124,31 @@ public class AttackState extends State {
 			Image sprite = Resources.testSprite;
 			if(c.equals(_c)) sprite = Resources.testSprite3 ;
 			if(c.isDead()) sprite = Resources.testSprite4;
-			g.drawImage(sprite, (c.getPositionX()*100)+50, (c.getPositionY()*100)+100, null);	
+			g.drawImage(sprite, (c.getPositionX()*100)+50, (c.getPositionY()*100)+50, null);	
 		}
 	}
 	
 	private void renderEnemies(Graphics g){
 		for(Enemy e: _enemies.getEnemies()){
 			if(!e.isDead()){
-				g.drawImage(Resources.testEnemy, 600, (e.getPosition()*100)+100, null);
+				g.drawImage(Resources.testEnemy, 600, (e.getPosition()*100)+50, null);
 			}
 		}
 	}
 	
 	private void renderTiles(Graphics g){
-		g.drawImage(Resources.whiteTile, 50, 150, null);
-		g.drawImage(Resources.whiteTile, 50, 250, null);
-		g.drawImage(Resources.whiteTile, 50, 350, null);
-		g.drawImage(Resources.whiteTile, 150, 150, null);
-		g.drawImage(Resources.whiteTile, 150, 250, null);
-		g.drawImage(Resources.whiteTile, 150, 350, null);
-		g.drawImage(Resources.whiteTile, 250, 150, null);
-		g.drawImage(Resources.whiteTile, 250, 250, null);
-		g.drawImage(Resources.whiteTile, 250, 350, null);
-		g.drawImage(Resources.whiteTile, 600, 150, null);
-		g.drawImage(Resources.whiteTile, 600, 250, null);
-		g.drawImage(Resources.whiteTile, 600, 350, null);
+		g.drawImage(Resources.whiteTile, 50, 100, null);
+		g.drawImage(Resources.whiteTile, 50, 200, null);
+		g.drawImage(Resources.whiteTile, 50, 300, null);
+		g.drawImage(Resources.whiteTile, 150, 100, null);
+		g.drawImage(Resources.whiteTile, 150, 200, null);
+		g.drawImage(Resources.whiteTile, 150, 300, null);
+		g.drawImage(Resources.whiteTile, 250, 100, null);
+		g.drawImage(Resources.whiteTile, 250, 200, null);
+		g.drawImage(Resources.whiteTile, 250, 300, null);
+		g.drawImage(Resources.whiteTile, 600, 100, null);
+		g.drawImage(Resources.whiteTile, 600, 200, null);
+		g.drawImage(Resources.whiteTile, 600, 300, null);
 		
 	}
 }
