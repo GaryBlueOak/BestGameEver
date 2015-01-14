@@ -8,10 +8,11 @@ import javax.imageio.ImageIO;
 
 public class Resources {
 
-	public static BufferedImage testSprite;
+	public static BufferedImage testSprite, testEnemy;
 	
 	public static void load(){
 		testSprite = loadImage("p2_stand.png");
+		testEnemy = loadImage("p3_front.png");
 	}
 	
 	private static BufferedImage loadImage(String filename) {
