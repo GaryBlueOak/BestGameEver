@@ -50,7 +50,8 @@ public class Game extends JPanel implements Runnable {
 			gameImage = createImage(gameWidth, gameHeight);
 		}
 		Graphics g = gameImage.getGraphics();
-		g.clearRect(0, 0, gameWidth, gameHeight);
+		g.setColor(Color.darkGray);
+		g.fillRect(0, 0, gameWidth, gameHeight);
 	}
 	
 	@Override
