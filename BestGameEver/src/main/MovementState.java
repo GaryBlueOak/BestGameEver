@@ -2,7 +2,9 @@ package main;
 
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.util.Iterator;
 
 public class MovementState extends State {
@@ -153,8 +155,10 @@ public class MovementState extends State {
 	
 	private void renderCharacters(Graphics g){
 		for(Character c: _player.getParty()){
+			Image sprite = Resources.testSprite;
+			if(c.equals(_c)) sprite = Resources.testSprite2;
 			if(!c.isDead()){
-				g.drawImage(Resources.testSprite, (c.getPositionX()*100)+50, (c.getPositionY()*100)+100, null);
+				g.drawImage(sprite, (c.getPositionX()*100)+50, (c.getPositionY()*100)+100, null);
 			}
 		}
 	}
