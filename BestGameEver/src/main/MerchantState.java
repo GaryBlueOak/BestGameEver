@@ -7,15 +7,21 @@ import items.*;
 
 public class MerchantState extends State {
 	
-	private ArrayList<Item> _goods;
+	private Item[] _goods;
 	private Player _player;
 	private int _index = -1;
 	private Item _item;
 	
-	public MerchantState(Player p){
+	public MerchantState(Player p, int merchentNumber){
 		_player = p;
-		_goods = new ArrayList<Item>();
-		_goods.add(new Potion());
+		switch(merchentNumber){
+			case 1:
+				break;
+		}
+		//temp
+		_player.getHomeBase().getMerchent().generateGoods();
+		//
+		_goods = _player.getHomeBase().getMerchent().getGoods();
 	}
 
 	@Override
@@ -28,16 +34,16 @@ public class MerchantState extends State {
 	@Override
 	public void onKeyPress(KeyEvent E) {
 		if(E.getKeyCode()==KeyEvent.VK_DOWN){
-			if(_index < (_goods.size())-1){
+			if(_index < (_goods.length)-1){
 				_index++;
-				_item = _goods.get(_index);
+				_item = _goods[_index];
 				System.out.println(_item.getName() + " " + _item.getCost() + "g");
 			}
 		}
 		if(E.getKeyCode()==KeyEvent.VK_UP){
 			if(_index > 0){
 				_index++;
-				_item = _goods.get(_index);
+				_item = _goods[_index];
 				System.out.println(_item.getName() + " " + _item.getCost() + "g");
 			}
 		}
@@ -72,7 +78,7 @@ public class MerchantState extends State {
 		System.out.flush();
 		System.out.println("\n\nAvalable Goods:");
 		for(Item item: _goods){
-			System.out.println(item.getName() + "\t\t" + item.getCost() + "g");
+			System.out.println(item.getCost() + "g" + "\t" + item.getName());
 		}
 	}
 

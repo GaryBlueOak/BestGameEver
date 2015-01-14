@@ -30,7 +30,7 @@ public class MenuState extends State {
 			setCurrentState(new MovementState(_player,enemies));
 		}
 		if(E.getKeyCode()==KeyEvent.VK_UP){
-			setCurrentState(new MerchantState(_player));
+			setCurrentState(new MerchantState(_player, 1));
 		}
 		if(E.getKeyCode()==KeyEvent.VK_DOWN){
 			setCurrentState(new TrainerState(_player));

@@ -16,10 +16,14 @@ public class Player {
 	private ArrayList<Item> _items;
 	public static int MAX_PARTY_SIZE = 4;
 	private int _gold;
+	private int _dayNumber;
+	private HomeBase _homeBase;
 	//private Character[][] _battleBoard;
 	
 	public Player(){
 //		_battleBoard = new Character[3][3];
+		_dayNumber = 0;
+		_homeBase = new HomeBase();
 		_gold = 100;
 		_specials = new ArrayList<SpecialAttack>();
 		_items = new ArrayList<Item>();
@@ -53,8 +57,16 @@ public class Player {
 		}
 	}
 	
+	public int getDayNumber(){
+		return _dayNumber;
+	}
+	
 	public int getGold(){
 		return _gold;
+	}
+	
+	public HomeBase getHomeBase(){
+		return _homeBase;
 	}
 	
 	public void setGold(int gold){
