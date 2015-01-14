@@ -1,7 +1,9 @@
 package main;
 
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.util.Iterator;
 
@@ -104,12 +106,24 @@ public class AttackState extends State {
 	@Override
 	public void render(Graphics g) {
 		renderCharacters(g);
-		
+		renderEnemies(g);
 	}
 	
 	private void renderCharacters(Graphics g){
 		for(Character c: _player.getParty()){
-			g.drawImage(Resources.testSprite, c.getPositionX()*100, c.getPositionY()*120, null);
+			Image sprite = Resources.testSprite;
+			if(c.equals(_c)) sprite = Resources.testSprite3;
+			if(!c.isDead()){
+				g.drawImage(sprite, (c.getPositionX()*100)+50, (c.getPositionY()*100)+100, null);
+			}
+		}
+	}
+	
+	private void renderEnemies(Graphics g){
+		for(Enemy e: _enemies.getEnemies()){
+			if(!e.isDead()){
+				g.drawImage(Resources.testEnemy, 600, e.getPosition()*100, null);
+			}
 		}
 	}
 }

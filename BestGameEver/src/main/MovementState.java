@@ -2,7 +2,9 @@ package main;
 
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.util.Iterator;
 
 public class MovementState extends State {
@@ -15,7 +17,6 @@ public class MovementState extends State {
 	public MovementState(Player p, Enemies e){
 		_player = p;
 		_enemies = e;
-		showBattleField();
 	}
 
 	@Override
@@ -87,7 +88,6 @@ public class MovementState extends State {
 		if(moveFound){
 			if(_itr.hasNext()){
 				_c = (Character)_itr.next();
-				showBattleField();
 				if(_c.isDead() && !_itr.hasNext()){
 					setCurrentState(new AttackState(_player,_enemies));
 				}
@@ -100,7 +100,6 @@ public class MovementState extends State {
 				System.out.println(_c.getName() + "'s move!");
 			}
 			else{
-				showBattleField();
 				setCurrentState(new AttackState(_player,_enemies));
 			}
 		}
@@ -133,7 +132,7 @@ public class MovementState extends State {
 				}
 			}
 			System.out.println();
-		}
+		}        
 	}
 
 	@Override
@@ -151,12 +150,24 @@ public class MovementState extends State {
 	@Override
 	public void render(Graphics g) {
 		renderCharacters(g);
+		renderEnemies(g);
 	}
 	
 	private void renderCharacters(Graphics g){
 		for(Character c: _player.getParty()){
-			g.drawImage(Resources.testSprite, c.getPositionX()*100, c.getPositionY()*120, null);
+			Image sprite = Resources.testSprite;
+			if(c.equals(_c)) sprite = Resources.testSprite2;
+			if(!c.isDead()){
+				g.drawImage(sprite, (c.getPositionX()*100)+50, (c.getPositionY()*100)+100, null);
+			}
 		}
 	}
-
+	
+	private void renderEnemies(Graphics g){
+		for(Enemy e: _enemies.getEnemies()){
+			if(!e.isDead()){
+				g.drawImage(Resources.testEnemy, 600, e.getPosition()*100, null);
+			}
+		}
+	}
 }
