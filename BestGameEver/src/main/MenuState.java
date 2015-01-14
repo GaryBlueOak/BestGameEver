@@ -17,7 +17,10 @@ public class MenuState extends State {
 	public void onKeyPress(KeyEvent E) {
 		if(E.getKeyCode()==KeyEvent.VK_ENTER){
 			System.out.println("Press space to start a battle.");
-			System.out.println("Press up to visit the merchant.");
+			System.out.println("Press up to visit the Merchant.");
+			System.out.println("Press M to visit the Mystic.");
+			System.out.println("Press A to visit the Armory.");
+			System.out.println("Press B to visit the Black Market.");
 			System.out.println("Press down to visit the trainer.");
 			System.out.println("Press right to manage your party.");
 			System.out.println("Press left to check party status.");
@@ -29,12 +32,29 @@ public class MenuState extends State {
 //				c.setPosition(2,2);
 //			}
 			setCurrentState(new MovementState(_player,enemies));
+			_player.advanceDay();
 		}
+		
 		if(E.getKeyCode()==KeyEvent.VK_UP){
-			setCurrentState(new MerchantState(_player));
+			setCurrentState(new MerchantState(_player, 1));
 		}
+		
+		if(E.getKeyChar()=='m'){
+			setCurrentState(new MerchantState(_player, 3));
+		}
+		
+		if(E.getKeyChar()=='a'){
+			setCurrentState(new MerchantState(_player, 2));
+
+		}
+		
+		if(E.getKeyChar()=='b'){
+			setCurrentState(new MerchantState(_player, 4));
+		}
+		
 		if(E.getKeyCode()==KeyEvent.VK_DOWN){
 			setCurrentState(new TrainerState(_player));
+			_player.advanceDay();
 		}
 		if(E.getKeyCode()==KeyEvent.VK_RIGHT){
 			setCurrentState(new ManageState(_player));
@@ -49,7 +69,7 @@ public class MenuState extends State {
 
 	@Override
 	public void init() {
-		System.out.println("You are at home base. Press Enter for options.");
+		System.out.println("It is currently day " + _player.getDayNumber() + ".\nPress Enter.");
 		
 	}
 

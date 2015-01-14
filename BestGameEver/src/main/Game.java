@@ -14,6 +14,9 @@ public class Game extends JPanel implements Runnable {
 	private volatile State currentState;
 	private int gameWidth;
 	private int gameHeight;
+
+	
+
 	private Image gameImage;
 
 	private InputHandler inputHandler;
@@ -33,6 +36,7 @@ public class Game extends JPanel implements Runnable {
 		setCurrentState(new MenuState(new Player()));
 		initGame();
 	}
+	
 
 	public void setCurrentState(State newState) {
 		System.gc();
