@@ -1,6 +1,7 @@
 package main;
 
 
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
 
@@ -49,6 +50,12 @@ public class MenuState extends State {
 	@Override
 	public void init() {
 		System.out.println("You are at home base. Press Enter for options.");
+		
+	}
+
+	@Override
+	public void render(Graphics g) {
+		// TODO Auto-generated method stub
 		
 	}
 

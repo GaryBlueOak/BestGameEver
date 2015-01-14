@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
@@ -74,6 +75,12 @@ public class MerchantState extends State {
 		for(Item item: _goods){
 			System.out.println(item.getName() + "\t\t" + item.getCost() + "g");
 		}
+	}
+
+	@Override
+	public void render(Graphics g) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

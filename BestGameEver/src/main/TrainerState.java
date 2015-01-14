@@ -3,8 +3,10 @@ package main;
 import items.Item;
 import items.Potion;
 
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+
 import specialattacks.*;
 
 public class TrainerState extends State {
@@ -63,6 +65,12 @@ public class TrainerState extends State {
 		if(E.getKeyCode()==KeyEvent.VK_SPACE){
 			setCurrentState(new MenuState(_player));
 		}
+		
+	}
+
+	@Override
+	public void render(Graphics g) {
+		// TODO Auto-generated method stub
 		
 	}
 

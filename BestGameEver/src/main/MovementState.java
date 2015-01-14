@@ -1,6 +1,7 @@
 package main;
 
 
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.Iterator;
 
@@ -145,6 +146,17 @@ public class MovementState extends State {
 		}
 		System.out.println(_c.getName() + "'s move!");
 		
+	}
+
+	@Override
+	public void render(Graphics g) {
+		renderCharacters(g);
+	}
+	
+	private void renderCharacters(Graphics g){
+		for(Character c: _player.getParty()){
+			g.drawImage(Resources.testSprite, c.getPositionX()*100, c.getPositionY()*120, null);
+		}
 	}
 
 }
