@@ -14,10 +14,16 @@ public class AttackState extends State {
 	private Iterator<Character> _itr;
 	private Character _c;
 	boolean victory = false;
+	private int _gold = 0;
+	private int _experience = 0;
 	
 	public AttackState(Player p,Enemies e){
 		_player = p;
 		_enemies = e;
+		for(Enemy enemy: _enemies.getEnemies()){
+			_gold += enemy.getGold();
+			_experience += enemy.getExperience();
+		}
 	}
 
 	@Override
@@ -37,6 +43,9 @@ public class AttackState extends State {
 		
 		if(victory()){
 			System.out.println("You are victorious!");
+			System.out.println("You have gained " + _gold + " gold and " + _experience + " experience.");
+			_player.setExperience(_player.getExperience()+_experience);
+			_player.setGold(_player.getGold() + _gold);
 			setCurrentState(new MenuState(_player));
 		}
 		else{

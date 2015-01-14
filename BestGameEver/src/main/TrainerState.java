@@ -80,11 +80,11 @@ public class TrainerState extends State {
 	public int getGoldCost(int index){
 		switch(index){
 			case 0:
-				return 100;
+				return 10;
 			case 1:
-				return 500;
+				return 50;
 			case 2:
-				return 1000;
+				return 100;
 		}
 		return 0;
 	}
@@ -92,11 +92,11 @@ public class TrainerState extends State {
 	public int getExperienceCost(int index){
 		switch(index){
 		case 0:
-			return 100;
+			return 10;
 		case 1:
-			return 500;
+			return 50;
 		case 2:
-			return 1000;
+			return 100;
 		}
 		return 0;
 	}
