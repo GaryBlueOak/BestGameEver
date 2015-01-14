@@ -38,7 +38,7 @@ public class AttackState extends State {
 			_c.useItem(_enemies);
 		}
 		else if (E.getKeyCode()==KeyEvent.VK_LEFT){
-			showInfo(_player);
+			System.out.println(_c.getName() + " took a defensive stance!");
 		}
 		
 		if(victory()){
@@ -72,7 +72,7 @@ public class AttackState extends State {
 
 	@Override
 	public void init() {
-		System.out.println("ATTACK PHASE **   attack: right   special: up   item: down   info: left ");
+		System.out.println("ATTACK PHASE **   attack: right   special: up   item: down   defend: left ");
 		_itr = _player.getParty().iterator();
 		_c = _itr.next();
 		

@@ -36,13 +36,13 @@ public class Enemy {
 	public String location(){
 		String location = "";
 		switch(_position){
-		case 1:
+		case 2:
 			location += "on the bottom!";
 			break;
-		case 2:
+		case 1:
 			location += "in the middle!";
 			break;
-		case 3:
+		case 0:
 			location += "on the top!";
 			break;
 		}

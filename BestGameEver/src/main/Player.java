@@ -29,8 +29,8 @@ public class Player {
 		_gold = 100;
 		_specials = new ArrayList<SpecialAttack>();
 		_items = new ArrayList<Item>();
-		_specials.add(new Splash());
-		_items.add(new Coin());
+		_specials.add(new MagicArrow());
+		_items.add(new Potion());
 		_party = new ArrayList<Character>();
 		_party.add(new Character("Eliwood"));
 		_party.add(new Character("Ike"));
@@ -43,8 +43,8 @@ public class Player {
 		_party.get(3).setPosition(2,1);
 		//
 		for(Character c: _party){
-			c.setSpecial(new Splash());
-			c.setItem(new Coin());
+			c.setSpecial(new MagicArrow());
+			c.setItem(new Potion());
 		}
 		advanceDay();
 	}
