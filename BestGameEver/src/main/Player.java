@@ -18,10 +18,12 @@ public class Player {
 	private int _gold;
 	private int _dayNumber;
 	private HomeBase _homeBase;
+	private int _experience;
 	//private Character[][] _battleBoard;
 	
 	public Player(){
 //		_battleBoard = new Character[3][3];
+		_experience = 0;
 		_dayNumber = 0;
 		_homeBase = new HomeBase();
 		_gold = 100;
@@ -44,6 +46,7 @@ public class Player {
 			c.setSpecial(new Splash());
 			c.setItem(new Coin());
 		}
+		advanceDay();
 	}
 	
 	public boolean addToParty(Character chr){
@@ -57,6 +60,14 @@ public class Player {
 		}
 	}
 	
+	public int getExperience(){
+		return _experience;
+	}
+	
+	public void setExperience(int experience){
+		_experience = experience;
+	}
+	
 	public int getDayNumber(){
 		return _dayNumber;
 	}
@@ -67,6 +78,18 @@ public class Player {
 	
 	public HomeBase getHomeBase(){
 		return _homeBase;
+	}
+	
+	public void advanceDay(){
+		_dayNumber ++;
+		_homeBase.generateDailyGoods();
+		if(_dayNumber%3==0){
+			_homeBase.getMystic().generateGoods();
+		}
+		if(_dayNumber%5==0){
+			_homeBase.getBlackMarket().generateGoods();
+		}
+		//System.out.println("Dawn of a new day.");
 	}
 	
 	public void setGold(int gold){

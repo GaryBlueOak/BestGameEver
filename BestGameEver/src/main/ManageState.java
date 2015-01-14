@@ -1,6 +1,8 @@
 package main;
 
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+
 import items.*;
 import specialattacks.*;
 
@@ -82,6 +84,12 @@ public class ManageState extends State {
 				System.out.println(_item.getName());
 			}
 		}
+		
+	}
+
+	@Override
+	public void render(Graphics g) {
+		// TODO Auto-generated method stub
 		
 	}
 

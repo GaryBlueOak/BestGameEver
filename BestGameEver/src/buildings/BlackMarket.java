@@ -36,5 +36,11 @@ public class BlackMarket extends Building {
 			System.out.println("Removed item.");
 		}
 	}
+	
+	public void generateGoods(){
+		for(int i = 0; i <4; i ++){
+			_goods[i] = new Sword();
+		}
+	}
 
 }

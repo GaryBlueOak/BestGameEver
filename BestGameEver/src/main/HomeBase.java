@@ -42,4 +42,9 @@ public class HomeBase {
 	public void levelUpMerchent(){
 		_merchent.levelUp();
 	}
+	
+	public void generateDailyGoods(){
+		_merchent.generateGoods();
+		_armory.generateGoods();
+	}
 }

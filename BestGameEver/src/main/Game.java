@@ -14,7 +14,10 @@ public class Game extends JPanel implements Runnable {
 	private volatile State currentState;
 	private int gameWidth;
 	private int gameHeight;
+
 	
+
+	private Image gameImage;
 
 	private InputHandler inputHandler;
 
@@ -41,9 +44,27 @@ public class Game extends JPanel implements Runnable {
 		currentState = newState;
 		inputHandler.setCurrentState(currentState);
 	}
+	
+	private void prepareGameImage() {
+		if (gameImage == null) {
+			gameImage = createImage(gameWidth, gameHeight);
+		}
+		Graphics g = gameImage.getGraphics();
+		g.clearRect(0, 0, gameWidth, gameHeight);
+	}
+	
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		if (gameImage == null) {
+			return;
+		}
+		g.drawImage(gameImage, 0, 0, null);
+	}
 
 	private void initGame() {
 		running = true;
+		Resources.load();
 		gameThread = new Thread(this, "Game Thread");
 		gameThread.start();
 	}
@@ -51,7 +72,14 @@ public class Game extends JPanel implements Runnable {
 	@Override
 	public void run() {
 		while (running) {
-			
+			prepareGameImage();
+			currentState.render(gameImage.getGraphics());
+			repaint();
+			try {
+				Thread.sleep(34);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		// End game immediately when running becomes false.
 		System.exit(0);

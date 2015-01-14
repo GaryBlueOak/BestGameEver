@@ -1,6 +1,7 @@
 package main;
 
 
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
 public abstract class State {
@@ -12,6 +13,8 @@ public abstract class State {
 	public void setCurrentState(State newState) {
 		test.sGame.setCurrentState(newState);
 	}
+	
+	public abstract void render(Graphics g);
 	
 	public void showInfo(Player p){
 		for(Character c: p.getParty()){
