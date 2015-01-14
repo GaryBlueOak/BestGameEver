@@ -122,7 +122,7 @@ public class AttackState extends State {
 	private void renderEnemies(Graphics g){
 		for(Enemy e: _enemies.getEnemies()){
 			if(!e.isDead()){
-				g.drawImage(Resources.testEnemy, 600, e.getPosition()*100, null);
+				g.drawImage(Resources.testEnemy, 600, (e.getPosition()*100)+100, null);
 			}
 		}
 	}
