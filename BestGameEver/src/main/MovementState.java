@@ -1,6 +1,7 @@
 package main;
 
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -106,34 +107,6 @@ public class MovementState extends State {
 		
 		
 	}
-	
-	public void showBattleField(){
-		String[][] map = new String[4][3];
-		System.out.println("/////// BattleField ////////\n");
-		for(Character character: _player.getParty()){
-			if(character.isDead()){
-				map[character.getPositionX()][character.getPositionY()] = "X";
-			}else{
-				map[character.getPositionX()][character.getPositionY()] = character.getName().substring(0,1);
-			}
-		}
-		for(Enemy enemy: _enemies.getEnemies()){
-			map[3][enemy.getPosition()-1] = enemy.getName().substring(0,1);
-		}
-		for(int i = 0; i < 3; i ++){
-			for(int k = 0; k < 4; k ++){
-				if(k == 3){
-					System.out.print("\t");
-				}
-				if(map[k][i] == null){
-					System.out.print("[]");
-				}else{
-					System.out.print(map[k][i]);
-				}
-			}
-			System.out.println();
-		}        
-	}
 
 	@Override
 	public void init() {
@@ -149,6 +122,7 @@ public class MovementState extends State {
 
 	@Override
 	public void render(Graphics g) {
+		renderStars(g);
 		renderTiles(g);
 		renderCharacters(g);
 		renderEnemies(g);
@@ -184,5 +158,19 @@ public class MovementState extends State {
 		g.drawImage(Resources.whiteTile, 600, 100, null);
 		g.drawImage(Resources.whiteTile, 600, 200, null);
 		g.drawImage(Resources.whiteTile, 600, 300, null);
+	}
+	
+	private void renderStars(Graphics g){
+		g.setColor(Color.white);
+		for(int i=60;i<800;i=i+60){
+			for(int j=20;j<450;j=j+160){
+				g.fillOval(i, j, 3, 3);
+			}
+		}
+		for(int i=30;i<800;i=i+60){
+			for(int j=100;j<450;j=j+160){
+				g.fillOval(i, j, 3, 3);
+			}
+		}
 	}
 }

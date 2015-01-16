@@ -114,6 +114,7 @@ public class AttackState extends State {
 
 	@Override
 	public void render(Graphics g) {
+		renderStars(g);
 		renderTiles(g);
 		renderCharacters(g);
 		renderEnemies(g);
@@ -123,7 +124,6 @@ public class AttackState extends State {
 		for(Character c: _player.getParty()){
 			Image sprite = Resources.testSprite;
 			if(c.equals(_c)) sprite = Resources.testSprite3 ;
-			if(c.isDead()) sprite = Resources.testSprite4;
 			g.drawImage(sprite, (c.getPositionX()*100)+50, (c.getPositionY()*100)+50, null);	
 		}
 	}
@@ -132,6 +132,20 @@ public class AttackState extends State {
 		for(Enemy e: _enemies.getEnemies()){
 			if(!e.isDead()){
 				g.drawImage(Resources.testEnemy, 600, (e.getPosition()*100)+50, null);
+			}
+		}
+	}
+	
+	private void renderStars(Graphics g){
+		g.setColor(Color.white);
+		for(int i=60;i<800;i=i+60){
+			for(int j=20;j<450;j=j+160){
+				g.fillOval(i, j, 3, 3);
+			}
+		}
+		for(int i=30;i<800;i=i+60){
+			for(int j=100;j<450;j=j+160){
+				g.fillOval(i, j, 3, 3);
 			}
 		}
 	}
