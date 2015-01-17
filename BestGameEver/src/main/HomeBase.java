@@ -5,12 +5,12 @@ import buildings.*;
 public class HomeBase {
 	public static int MAX_UPGRADE_LEVEL = 9;
 	private Armory _armory;
-	private Merchent _merchent;
+	private Merchant _merchent;
 	private Mystic _mystic;
 	private BlackMarket _blackMarket;
 	public HomeBase(){
 		_armory = new Armory();
-		_merchent = new Merchent();
+		_merchent = new Merchant();
 		_mystic = new Mystic();
 		_blackMarket = new BlackMarket();
 	}
@@ -19,7 +19,7 @@ public class HomeBase {
 		return _armory;
 	}
 	
-	public Merchent getMerchent(){
+	public Merchant getMerchent(){
 		return _merchent;
 	}
 	

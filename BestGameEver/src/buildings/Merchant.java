@@ -3,12 +3,12 @@ package buildings;
 import items.Item;
 import items.Sword;
 
-public class Merchent extends Building {
+public class Merchant extends Building {
 	private int _storeLevel; // store level determines selection of goods
 	private Clerk _clerk; // clerk level determines quality of goods
 	private Item[] _goods;
 	
-	public Merchent(){
+	public Merchant(){
 		_storeLevel = 1;
 		_clerk = new Clerk("Cherry Cracker", 1);
 		_goods = new Item[10];
@@ -22,7 +22,7 @@ public class Merchent extends Building {
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "Merchent";
+		return "Merchant";
 	}
 	public boolean levelUp(){
 		if(_storeLevel < 9){
