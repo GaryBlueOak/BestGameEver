@@ -5,8 +5,8 @@ import javax.swing.JFrame;
 
 
 public class test {
-	public static final int GAME_WIDTH = 800;
-	public static final int GAME_HEIGHT = 450;
+	public static final int GAME_WIDTH = 1000;
+	public static final int GAME_HEIGHT = 600;
 	public static Game sGame;
 	
 	public static void main(String[] args){

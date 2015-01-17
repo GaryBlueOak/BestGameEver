@@ -16,10 +16,5 @@ public abstract class State {
 	
 	public abstract void render(Graphics g);
 	
-	public void showInfo(Player p){
-		for(Character c: p.getParty()){
-			System.out.println(c.checkInfo());
-		}
-	}
 
 }

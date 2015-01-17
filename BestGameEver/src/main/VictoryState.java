@@ -1,29 +1,33 @@
 package main;
 
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 
-public class GameOverState extends State {
+public class VictoryState extends State {
 	
 	private Player _player;
 	private Enemies _enemies;
 	
-	public GameOverState(Player p, Enemies e){
+	public VictoryState(Player p, Enemies e){
 		_player = p;
 		_enemies = e;
 	}
 
 	@Override
 	public void init() {
-
+		_player.difficulty += 10;
+		for(Character c: _player.getParty()){
+			c.gainHealth(5);
+		}	
 	}
 
 	@Override
 	public void onKeyPress(KeyEvent E) {
-		setCurrentState(new MenuState(new Player()));
+		Enemies enemies = new Enemies(_player.difficulty);
+		setCurrentState(new MovementState(_player,enemies));
 	}
 
 	@Override
@@ -59,12 +63,10 @@ public class GameOverState extends State {
 	private void renderText(Graphics g){
 		g.setFont(Resources.font);
 		g.setColor(Color.white);
-		g.drawString("GAME OVER",300,200);
+		g.drawString("Victory!",350,200);
 		Font newFont = Resources.font.deriveFont((float)25.0);
 		g.setFont(newFont);
-		g.drawString("TIP: ships closer to the enemy", 100, 300);
-		g.drawString("are more likely to be targeted!", 100, 350);
-		g.drawString("Press any key to return to start screen", 50, 550);
+		g.drawString("Press any key to begin the next wave", 100, 550);
 		
 	}
 	

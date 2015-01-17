@@ -9,16 +9,15 @@ public class Enemies {
 
 	private ArrayList<Enemy> _enemies;
 	
-	public Enemies(){
+	public Enemies(int difficulty){
 		Random randomGenerator = new Random();
-		int numEnemies = randomGenerator.nextInt(3);
+		int numEnemies = 3;
 		_enemies = new ArrayList<Enemy>();
 		Enemy enemy; 
-		for(int i=0;i<=numEnemies;i++){
-			enemy = new Enemy(randomGenerator.nextInt(6)+1,randomGenerator.nextInt(5)+1);
-			enemy.setPosition(i);
+		for(int i=1;i<=numEnemies;i++){
+			enemy = new Enemy(difficulty);
+			enemy.setPosition(i-1);
 			_enemies.add(enemy);
-			System.out.println(enemy.getName()+" has taken position " + enemy.location());
 		}
 		
 	}

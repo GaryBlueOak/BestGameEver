@@ -2,6 +2,7 @@ package main;
 
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -28,51 +29,36 @@ public class AttackState extends State {
 
 	@Override
 	public void onKeyPress(KeyEvent E) {
-		if(E.getKeyCode()==KeyEvent.VK_RIGHT){
+		if(E.getKeyCode()==KeyEvent.VK_SPACE){
 			_c.normalAttack(_enemies);
-		}
-		else if (E.getKeyCode()==KeyEvent.VK_UP){
-			_c.specialAttack(_enemies);
-		}
-		else if (E.getKeyCode()==KeyEvent.VK_DOWN){
-			_c.useItem(_enemies);
-		}
-		else if (E.getKeyCode()==KeyEvent.VK_LEFT){
-			System.out.println(_c.getName() + " took a defensive stance!");
-		}
-		
-		if(victory()){
-			System.out.println("You are victorious!");
-			System.out.println("You have gained " + _gold + " gold and " + _experience + " experience.");
-			_player.setExperience(_player.getExperience()+_experience);
-			_player.setGold(_player.getGold() + _gold);
-			setCurrentState(new MenuState(_player));
-		}
-		else{
-		
-			if(_itr.hasNext()){
-				_c = _itr.next();
-				
-				if(_c.isDead() && !_itr.hasNext()){
-					enemyPhase();
-				}
-				while(_c.isDead() && _itr.hasNext()){
-					_c =_itr.next();
+			if(victory()){
+				setCurrentState(new VictoryState(_player,_enemies));
+			}
+			else{
+			
+				if(_itr.hasNext()){
+					_c = _itr.next();
+					
 					if(_c.isDead() && !_itr.hasNext()){
 						enemyPhase();
 					}
+					while(_c.isDead() && _itr.hasNext()){
+						_c =_itr.next();
+						if(_c.isDead() && !_itr.hasNext()){
+							enemyPhase();
+						}
+					}
+					System.out.println(_c.getName() + "'s move!");
 				}
-				System.out.println(_c.getName() + "'s move!");
-			}
-			else{
-				enemyPhase();
+				else{
+					enemyPhase();
+				}
 			}
 		}
 	}
 
 	@Override
 	public void init() {
-		System.out.println("ATTACK PHASE **   attack: right   special: up   item: down   defend: left ");
 		_itr = _player.getParty().iterator();
 		_c = _itr.next();
 		
@@ -108,61 +94,81 @@ public class AttackState extends State {
 			setCurrentState(new MovementState(_player,_enemies));
 		}
 		else{
-			setCurrentState(new GameOverState());
+			setCurrentState(new GameOverState(_player,_enemies));
 		}
 	}
 
 	@Override
 	public void render(Graphics g) {
+		renderText(g);
 		renderStars(g);
-		renderTiles(g);
-		renderCharacters(g);
 		renderEnemies(g);
+		renderCharacters(g);
+	}
+	
+	private void renderText(Graphics g){
+		g.setFont(Resources.font);
+		g.setColor(Color.white);
+		Font newFont = Resources.font.deriveFont((float)25.0);
+		g.setFont(newFont);
+		g.drawString("Press the space bar to fire", 100, 550);
+		
 	}
 	
 	private void renderCharacters(Graphics g){
 		for(Character c: _player.getParty()){
-			Image sprite = Resources.testSprite;
-			if(c.equals(_c)) sprite = Resources.testSprite3 ;
-			g.drawImage(sprite, (c.getPositionX()*100)+50, (c.getPositionY()*100)+50, null);	
-		}
+			c.update();
+			Image icon = Resources.attackIcon;
+			g.drawImage(c.getImage(), c.getXcrd(), c.getYcrd(), null);
+			c.getLaser().update();
+			g.drawImage(c.getLaserImage(),c.getLaser().x,c.getLaser().y,null);
+			g.drawImage(c.getFirstDigit(),c.getXcrd()+50,c.getYcrd()+70,null);
+			g.drawImage(c.getSecondDigit(),c.getXcrd()+71,c.getYcrd()+70,null);
+			if(c.equals(_c)){
+				g.drawImage(icon, (c.getPositionX()*100)+100, (c.getPositionY()*150)+100,null);
+			}
+		}	
 	}
 	
 	private void renderEnemies(Graphics g){
 		for(Enemy e: _enemies.getEnemies()){
-			if(!e.isDead()){
-				g.drawImage(Resources.testEnemy, 600, (e.getPosition()*100)+50, null);
-			}
+			e.update();
+			g.drawImage(e.getImage(), e.getXcrd(), e.getYcrd(), null);
+			e.getLaser().update();
+			g.drawImage(Resources.laser2,e.getLaser().x,e.getLaser().y,null);
+			g.drawImage(e.getFirstDigit(),e.getXcrd()+85,e.getYcrd()+35,null);
+			g.drawImage(e.getSecondDigit(),e.getXcrd()+106,e.getYcrd()+35,null);
 		}
 	}
 	
 	private void renderStars(Graphics g){
 		g.setColor(Color.white);
-		for(int i=60;i<800;i=i+60){
-			for(int j=20;j<450;j=j+160){
-				g.fillOval(i, j, 3, 3);
-			}
-		}
-		for(int i=30;i<800;i=i+60){
-			for(int j=100;j<450;j=j+160){
-				g.fillOval(i, j, 3, 3);
-			}
-		}
-	}
-	
-	private void renderTiles(Graphics g){
-		g.drawImage(Resources.whiteTile, 50, 100, null);
-		g.drawImage(Resources.whiteTile, 50, 200, null);
-		g.drawImage(Resources.whiteTile, 50, 300, null);
-		g.drawImage(Resources.whiteTile, 150, 100, null);
-		g.drawImage(Resources.whiteTile, 150, 200, null);
-		g.drawImage(Resources.whiteTile, 150, 300, null);
-		g.drawImage(Resources.whiteTile, 250, 100, null);
-		g.drawImage(Resources.whiteTile, 250, 200, null);
-		g.drawImage(Resources.whiteTile, 250, 300, null);
-		g.drawImage(Resources.whiteTile, 600, 100, null);
-		g.drawImage(Resources.whiteTile, 600, 200, null);
-		g.drawImage(Resources.whiteTile, 600, 300, null);
+		g.fillOval(400,150,3,3);
+		g.fillOval(600,300,3,3);
+		g.fillOval(500,400,3,3);
+		g.fillOval(700,200,3,3);
+		g.fillOval(800,225,3,3);
+		g.fillOval(900,200,3,3);
+		g.fillOval(100,350,3,3);
+		g.fillOval(500,120,3,3);
+		g.fillOval(200,500,3,3);
+		g.fillOval(300,460,3,3);
+		g.fillOval(670,380,3,3);
+		g.fillOval(500,550,3,3);
+		g.fillOval(200,130,3,3);
+		g.fillOval(900,560,3,3);
+		g.fillOval(800,580,3,3);
+		g.fillOval(650,460,3,3);
+		g.fillOval(400,300,3,3);
+		g.fillOval(800,500,3,3);
+		g.fillOval(100,100,3,3);
+		g.fillOval(700,80,3,3);
+		g.fillOval(400,50,3,3);
+		g.fillOval(500,300,3,3);
+		g.fillOval(300,560,3,3);
+		g.fillOval(100,500,3,3);
+		g.fillOval(200,500,3,3);
 		
 	}
+	
 }

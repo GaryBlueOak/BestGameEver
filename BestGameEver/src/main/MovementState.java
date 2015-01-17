@@ -2,6 +2,7 @@ package main;
 
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -22,68 +23,42 @@ public class MovementState extends State {
 
 	@Override
 	public void onKeyPress(KeyEvent E) {
+		Resources.moveSound.play();
 		boolean moveFound = false;
 		Character[][] battleBoard = _player.getBattleBoard();
 		if(E.getKeyCode()==KeyEvent.VK_UP){
 			if(_c.getPositionY() > 0 ){
-				if(battleBoard[_c.getPositionX()][_c.getPositionY()-1] == null){
+				if((battleBoard[_c.getPositionX()][_c.getPositionY()-1] == null) || battleBoard[_c.getPositionX()][_c.getPositionY()-1].isDead()){
 					_c.setPosition(_c.getPositionX(), _c.getPositionY()-1);
 					moveFound = true;
-					System.out.println(_c.getName() + " has moved to " + _c.getLocation() + "!");
 				}
-				else{
-					System.out.println(battleBoard[_c.getPositionX()][_c.getPositionY()-1].getName() + " is in " + _c.getName() + "'s way!");
-				}
-			}else{
-				System.out.println(_c.getName() + " cannot move any higher.");
 			}
-			
 		}
 		else if(E.getKeyCode()==KeyEvent.VK_DOWN){
 			if(_c.getPositionY() < 2){
-				if(battleBoard[_c.getPositionX()][_c.getPositionY()+1] == null){
+				if((battleBoard[_c.getPositionX()][_c.getPositionY()+1] == null) || battleBoard[_c.getPositionX()][_c.getPositionY()+1].isDead()){
 					_c.setPosition(_c.getPositionX(), _c.getPositionY()+1);
 					moveFound = true;
-					System.out.println(_c.getName() + " has moved to " + _c.getLocation() + "!");
-				}else{
-					System.out.println(battleBoard[_c.getPositionX()][_c.getPositionY()+1].getName() + " is in " + _c.getName() + "'s way!");
 				}
-			}else{
-				System.out.println(_c.getName() + " cannot move any lower.");
-			}
-				
+			}			
 		}
 		else if(E.getKeyCode()==KeyEvent.VK_RIGHT){
 			if(_c.getPositionX() < 2){
-				if(battleBoard[_c.getPositionX()+1][_c.getPositionY()] == null){
+				if((battleBoard[_c.getPositionX()+1][_c.getPositionY()] == null) || battleBoard[_c.getPositionX()+1][_c.getPositionY()].isDead()){
 					_c.setPosition(_c.getPositionX()+1, _c.getPositionY());
 					moveFound = true;
-					System.out.println(_c.getName() + " has moved to " + _c.getLocation() + "!");
-				}else{
-					System.out.println(battleBoard[_c.getPositionX()+1][_c.getPositionY()].getName() + " is in " + _c.getName() + "'s way!");
 				}
-			}else{
-				System.out.println(_c.getName() + " cannot move anymore rightwards.");
-			}
-				
+			}	
 		}
 		else if(E.getKeyCode()==KeyEvent.VK_LEFT){
 			if(_c.getPositionX() > 0){
-				if(battleBoard[_c.getPositionX()-1][_c.getPositionY()] == null){
+				if((battleBoard[_c.getPositionX()-1][_c.getPositionY()] == null) || battleBoard[_c.getPositionX()-1][_c.getPositionY()].isDead()){
 					_c.setPosition(_c.getPositionX()-1, _c.getPositionY());
 					moveFound = true;
-					System.out.println(_c.getName() + " has moved to " + _c.getLocation() + "!");
-				}else{
-					System.out.println(battleBoard[_c.getPositionX()-1][_c.getPositionY()].getName() + " is in " + _c.getName() + "'s way!");
 				}
-			}else{
-				System.out.println(_c.getName() + " cannot move an more leftwards.");
 			}
-			
-			
 		}
 		else if(E.getKeyCode()==KeyEvent.VK_SPACE){
-			System.out.println(_c.getName() + " held position!");
 			moveFound = true;
 		}
 		if(moveFound){
@@ -103,9 +78,7 @@ public class MovementState extends State {
 			else{
 				setCurrentState(new AttackState(_player,_enemies));
 			}
-		}
-		
-		
+		}	
 	}
 
 	@Override
@@ -116,61 +89,80 @@ public class MovementState extends State {
 		while(_c.isDead()){
 			_c = (Character)_itr.next();
 		}
-		System.out.println(_c.getName() + "'s move!");
-		
 	}
 
 	@Override
 	public void render(Graphics g) {
+		renderText(g);
 		renderStars(g);
-		renderTiles(g);
-		renderCharacters(g);
 		renderEnemies(g);
+		renderCharacters(g);
+	}
+	
+	private void renderText(Graphics g){
+		g.setFont(Resources.font);
+		g.setColor(Color.white);
+		Font newFont = Resources.font.deriveFont((float)25.0);
+		g.setFont(newFont);
+		g.drawString("Use the arrow keys to move or space to stay", 30, 550);
+		
 	}
 	
 	private void renderCharacters(Graphics g){
 		for(Character c: _player.getParty()){
-			Image sprite = Resources.testSprite;
-			if(c.equals(_c)) sprite = Resources.testSprite2;
-			if(c.isDead()) sprite = Resources.testSprite4;
-			g.drawImage(sprite, (c.getPositionX()*100)+50, (c.getPositionY()*100)+50, null);	
+			c.update();
+			Image icon = Resources.moveIcon;
+			g.drawImage(c.getImage(), c.getXcrd(), c.getYcrd(), null);
+			c.getLaser().update();
+			g.drawImage(c.getLaserImage(),c.getLaser().x,c.getLaser().y,null);
+			g.drawImage(c.getFirstDigit(),c.getXcrd()+50,c.getYcrd()+70,null);
+			g.drawImage(c.getSecondDigit(),c.getXcrd()+71,c.getYcrd()+70,null);
+			if(c.equals(_c)){
+				g.drawImage(icon, (c.getPositionX()*100)+100, (c.getPositionY()*150)+100,null);
+			}
+			
 		}
 	}
 	
 	private void renderEnemies(Graphics g){
 		for(Enemy e: _enemies.getEnemies()){
-			if(!e.isDead()){
-				g.drawImage(Resources.testEnemy, 600, (e.getPosition()*100)+50, null);
-			}
+			e.update();
+			g.drawImage(e.getImage(), e.getXcrd(), e.getYcrd(), null);
+			e.getLaser().update();
+			g.drawImage(Resources.laser2,e.getLaser().x,e.getLaser().y,null);
+			g.drawImage(e.getFirstDigit(),e.getXcrd()+85,e.getYcrd()+35,null);
+			g.drawImage(e.getSecondDigit(),e.getXcrd()+106,e.getYcrd()+35,null);
 		}
 	}
 	
-	private void renderTiles(Graphics g){
-		g.drawImage(Resources.whiteTile, 50, 100, null);
-		g.drawImage(Resources.whiteTile, 50, 200, null);
-		g.drawImage(Resources.whiteTile, 50, 300, null);
-		g.drawImage(Resources.whiteTile, 150, 100, null);
-		g.drawImage(Resources.whiteTile, 150, 200, null);
-		g.drawImage(Resources.whiteTile, 150, 300, null);
-		g.drawImage(Resources.whiteTile, 250, 100, null);
-		g.drawImage(Resources.whiteTile, 250, 200, null);
-		g.drawImage(Resources.whiteTile, 250, 300, null);
-		g.drawImage(Resources.whiteTile, 600, 100, null);
-		g.drawImage(Resources.whiteTile, 600, 200, null);
-		g.drawImage(Resources.whiteTile, 600, 300, null);
-	}
 	
 	private void renderStars(Graphics g){
 		g.setColor(Color.white);
-		for(int i=60;i<800;i=i+60){
-			for(int j=20;j<450;j=j+160){
-				g.fillOval(i, j, 3, 3);
-			}
-		}
-		for(int i=30;i<800;i=i+60){
-			for(int j=100;j<450;j=j+160){
-				g.fillOval(i, j, 3, 3);
-			}
-		}
+		g.fillOval(400,150,3,3);
+		g.fillOval(600,300,3,3);
+		g.fillOval(500,400,3,3);
+		g.fillOval(700,200,3,3);
+		g.fillOval(800,225,3,3);
+		g.fillOval(900,200,3,3);
+		g.fillOval(100,350,3,3);
+		g.fillOval(500,120,3,3);
+		g.fillOval(200,500,3,3);
+		g.fillOval(300,460,3,3);
+		g.fillOval(670,380,3,3);
+		g.fillOval(500,550,3,3);
+		g.fillOval(200,130,3,3);
+		g.fillOval(900,560,3,3);
+		g.fillOval(800,580,3,3);
+		g.fillOval(650,460,3,3);
+		g.fillOval(400,300,3,3);
+		g.fillOval(800,500,3,3);
+		g.fillOval(100,100,3,3);
+		g.fillOval(700,80,3,3);
+		g.fillOval(400,50,3,3);
+		g.fillOval(500,300,3,3);
+		g.fillOval(300,560,3,3);
+		g.fillOval(100,500,3,3);
+		g.fillOval(200,500,3,3);
+		
 	}
 }

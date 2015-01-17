@@ -1,9 +1,6 @@
 package main;
 
 
-
-import items.Coin;
-
 import java.util.ArrayList;
 
 import specialattacks.*;
@@ -19,6 +16,7 @@ public class Player {
 	private int _dayNumber;
 	private HomeBase _homeBase;
 	private int _experience;
+	public int difficulty;
 	//private Character[][] _battleBoard;
 	
 	public Player(){
@@ -26,11 +24,10 @@ public class Player {
 		_experience = 0;
 		_dayNumber = 0;
 		_homeBase = new HomeBase();
+		 difficulty = 0;
 		_gold = 100;
 		_specials = new ArrayList<SpecialAttack>();
 		_items = new ArrayList<Item>();
-		_specials.add(new MagicArrow());
-		_items.add(new Potion());
 		_party = new ArrayList<Character>();
 		_party.add(new Character("Eliwood"));
 		_party.add(new Character("Ike"));
@@ -41,12 +38,6 @@ public class Player {
 		_party.get(1).setPosition(1,0);
 		_party.get(2).setPosition(1,2);
 		_party.get(3).setPosition(2,1);
-		//
-		for(Character c: _party){
-			c.setSpecial(new MagicArrow());
-			c.setItem(new Potion());
-		}
-		advanceDay();
 	}
 	
 	public boolean addToParty(Character chr){
@@ -80,18 +71,6 @@ public class Player {
 		return _homeBase;
 	}
 	
-	public void advanceDay(){
-		_dayNumber ++;
-		_homeBase.generateDailyGoods();
-		if(_dayNumber%3==0){
-			_homeBase.getMystic().generateGoods();
-		}
-		if(_dayNumber%5==0){
-			_homeBase.getBlackMarket().generateGoods();
-		}
-		//System.out.println("Dawn of a new day.");
-	}
-	
 	public void setGold(int gold){
 		_gold = gold;
 	}
@@ -121,24 +100,6 @@ public class Player {
 	
 	public ArrayList<Item> getItems(){
 		return _items;
-	}
-	
-	public void statusCheck(){
-		Character deadChar = checkHP();
-		while(deadChar != null){
-			_party.remove(deadChar);
-			System.out.println(deadChar.getName() + " has died.");
-			deadChar = checkHP();
-		}
-	}
-	
-	private Character checkHP(){
-		for(Character chr: _party){
-			if(chr.getHealth() < 1){
-				return chr;
-			}
-		}
-		return null;
 	}
 	
 	public ArrayList<Character> getParty(){

@@ -1,8 +1,17 @@
 package main;
 
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 
 public class MenuState extends State {
@@ -15,68 +24,59 @@ public class MenuState extends State {
 
 	@Override
 	public void onKeyPress(KeyEvent E) {
-		if(E.getKeyCode()==KeyEvent.VK_ENTER){
-			System.out.println("Press space to start a battle.");
-			System.out.println("Press up to visit the Merchant.");
-			System.out.println("Press M to visit the Mystic.");
-			System.out.println("Press A to visit the Armory.");
-			System.out.println("Press B to visit the Black Market.");
-			System.out.println("Press down to visit the trainer.");
-			System.out.println("Press right to manage your party.");
-			System.out.println("Press left to check party status.");
-		}
-		if(E.getKeyCode()==KeyEvent.VK_SPACE){
-			System.out.println("You have chosen to battle.");
-			Enemies enemies = new Enemies();
-			_player.getParty().get(0).setPosition(0, 1);
-			_player.getParty().get(1).setPosition(1,0);
-			_player.getParty().get(2).setPosition(1,2);
-			_player.getParty().get(3).setPosition(2,1);
-			setCurrentState(new MovementState(_player,enemies));
-			_player.advanceDay();
-		}
-		
-		if(E.getKeyCode()==KeyEvent.VK_UP){
-			setCurrentState(new MerchantState(_player, 1));
-		}
-		
-		if(E.getKeyChar()=='m'){
-			setCurrentState(new MerchantState(_player, 3));
-		}
-		
-		if(E.getKeyChar()=='a'){
-			setCurrentState(new MerchantState(_player, 2));
-
-		}
-		
-		if(E.getKeyChar()=='b'){
-			setCurrentState(new MerchantState(_player, 4));
-		}
-		
-		if(E.getKeyCode()==KeyEvent.VK_DOWN){
-			setCurrentState(new TrainerState(_player));
-			_player.advanceDay();
-		}
-		if(E.getKeyCode()==KeyEvent.VK_RIGHT){
-			setCurrentState(new ManageState(_player));
-		}
-		if(E.getKeyCode()==KeyEvent.VK_LEFT){
-			for(Character c: _player.getParty()){
-				System.out.println(c.checkStatus());
-			}
-		}
-			
+		Resources.laser3Sound.play();
+		Enemies enemies = new Enemies(_player.difficulty);
+		_player.getParty().get(0).setPosition(0, 1);
+		_player.getParty().get(1).setPosition(1,0);
+		_player.getParty().get(2).setPosition(1,2);
+		_player.getParty().get(3).setPosition(2,1);
+		setCurrentState(new MovementState(_player,enemies));
 	}
 
 	@Override
 	public void init() {
-		System.out.println("It is currently day " + _player.getDayNumber() + ".\nPress Enter.");
-		
+
 	}
 
 	@Override
 	public void render(Graphics g) {
-		// TODO Auto-generated method stub
+		renderStars(g);
+		g.setFont(Resources.font);
+		g.setColor(Color.yellow);
+		g.drawString("BOLT SQUADRON",180,200);
+		Font newFont = Resources.font.deriveFont((float)25.0);
+		g.setFont(newFont);
+		g.drawString("Press any key to start",250,400);
+		
+	}
+	
+	private void renderStars(Graphics g){
+		g.setColor(Color.white);
+		g.fillOval(400,150,3,3);
+		g.fillOval(600,300,3,3);
+		g.fillOval(500,400,3,3);
+		g.fillOval(700,200,3,3);
+		g.fillOval(800,225,3,3);
+		g.fillOval(900,200,3,3);
+		g.fillOval(100,350,3,3);
+		g.fillOval(500,120,3,3);
+		g.fillOval(200,500,3,3);
+		g.fillOval(300,460,3,3);
+		g.fillOval(670,380,3,3);
+		g.fillOval(500,550,3,3);
+		g.fillOval(200,130,3,3);
+		g.fillOval(900,560,3,3);
+		g.fillOval(800,580,3,3);
+		g.fillOval(650,460,3,3);
+		g.fillOval(400,300,3,3);
+		g.fillOval(800,500,3,3);
+		g.fillOval(100,100,3,3);
+		g.fillOval(700,80,3,3);
+		g.fillOval(400,50,3,3);
+		g.fillOval(500,300,3,3);
+		g.fillOval(300,560,3,3);
+		g.fillOval(100,500,3,3);
+		g.fillOval(200,500,3,3);
 		
 	}
 
