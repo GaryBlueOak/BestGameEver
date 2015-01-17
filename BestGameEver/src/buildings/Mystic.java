@@ -1,17 +1,18 @@
 package buildings;
 
+import specialattacks.*;
 import items.Item;
 import items.Sword;
 
 public class Mystic extends Building{
 		private int _storeLevel; // store level determines selection of goods
 		private Clerk _clerk; // clerk level determines quality of goods
-		private Item[] _goods;
+		private SpecialAttack[] _goods;
 		
 		public Mystic(){
 			_storeLevel = 1;
 			_clerk = new Clerk("Scrappy Doo", 1);
-			_goods = new Item[10];
+			_goods = new SpecialAttack[10];
 		}
 		@Override
 		public int getLevel() {
@@ -44,7 +45,7 @@ public class Mystic extends Building{
 			_clerk = clerk;
 		}
 		
-		public Item[] getGoods(){
+		public SpecialAttack[] getGoods(){
 			return _goods;
 		}
 		
@@ -61,7 +62,7 @@ public class Mystic extends Building{
 			switch(_storeLevel){
 				case 1:
 					for(int i = 0; i <10; i ++){
-						_goods[i] = new Sword();
+						_goods[i] = new MagicArrow();
 					}
 					break;
 				case 2:

@@ -46,5 +46,6 @@ public class HomeBase {
 	public void generateDailyGoods(){
 		_merchent.generateGoods();
 		_armory.generateGoods();
+		_mystic.generateGoods();
 	}
 }

@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import specialattacks.*;
 import items.*;
 
 public class MerchantState extends State {
@@ -26,10 +27,6 @@ public class MerchantState extends State {
 				_goods = _player.getHomeBase().getArmory().getGoods();
 				break;
 			case 3:
-				storeName = _player.getHomeBase().getMystic().getName();
-				_goods = _player.getHomeBase().getMystic().getGoods();
-				break;
-			case 4:
 				storeName = _player.getHomeBase().getBlackMarket().getName();
 				_goods = _player.getHomeBase().getBlackMarket().getGoods();
 				break;

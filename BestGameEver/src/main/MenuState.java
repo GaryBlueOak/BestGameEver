@@ -41,7 +41,7 @@ public class MenuState extends State {
 		}
 		
 		if(E.getKeyChar()=='m'){
-			setCurrentState(new MerchantState(_player, 3));
+			setCurrentState(new MysticState(_player));
 		}
 		
 		if(E.getKeyChar()=='a'){
@@ -50,7 +50,7 @@ public class MenuState extends State {
 		}
 		
 		if(E.getKeyChar()=='b'){
-			setCurrentState(new MerchantState(_player, 4));
+			setCurrentState(new MerchantState(_player, 3));
 		}
 		
 		if(E.getKeyCode()==KeyEvent.VK_DOWN){
