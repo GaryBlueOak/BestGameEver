@@ -11,7 +11,7 @@ public class test {
 	
 	public static void main(String[] args){
 		
-		JFrame frame = new JFrame("BESTGAME");
+		JFrame frame = new JFrame("BOLT SQUADRON");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false); // Prevents manual resizing of window
 		sGame = new Game(GAME_WIDTH,GAME_HEIGHT);
