@@ -16,8 +16,13 @@ public class AttackState extends State {
 	boolean victory = false;
 	private int _gold = 0;
 	private int _experience = 0;
+	private String _toRender = "";
+	private int[] _where;
 	
 	public AttackState(Player p,Enemies e){
+		_where = new int[2];
+		_where[0] = 400;
+		_where[1] = 100;
 		_player = p;
 		_enemies = e;
 		for(Enemy enemy: _enemies.getEnemies()){
@@ -29,7 +34,9 @@ public class AttackState extends State {
 	@Override
 	public void onKeyPress(KeyEvent E) {
 		if(E.getKeyCode()==KeyEvent.VK_RIGHT){
+			_toRender = _c.getName() +" has attacked!";
 			_c.normalAttack(_enemies);
+			
 		}
 		else if (E.getKeyCode()==KeyEvent.VK_UP){
 			_c.specialAttack(_enemies);
@@ -38,10 +45,13 @@ public class AttackState extends State {
 			_c.useItem(_enemies);
 		}
 		else if (E.getKeyCode()==KeyEvent.VK_LEFT){
+			_toRender = _c.getName() +" started blocking!";
 			System.out.println(_c.getName() + " took a defensive stance!");
 		}
 		
 		if(victory()){
+			_toRender = "You are victorious!";
+//			renderText("You are victorious!",100,200);
 			System.out.println("You are victorious!");
 			System.out.println("You have gained " + _gold + " gold and " + _experience + " experience.");
 			_player.setExperience(_player.getExperience()+_experience);
@@ -117,6 +127,7 @@ public class AttackState extends State {
 		renderTiles(g);
 		renderCharacters(g);
 		renderEnemies(g);
+		renderText(g);
 	}
 	
 	private void renderCharacters(Graphics g){
@@ -131,6 +142,7 @@ public class AttackState extends State {
 	private void renderEnemies(Graphics g){
 		for(Enemy e: _enemies.getEnemies()){
 			if(!e.isDead()){
+				//g.drawString("TEST", 600, (e.getPosition()*100)+50);
 				g.drawImage(Resources.testEnemy, 600, (e.getPosition()*100)+50, null);
 			}
 		}
@@ -149,6 +161,10 @@ public class AttackState extends State {
 		g.drawImage(Resources.whiteTile, 600, 100, null);
 		g.drawImage(Resources.whiteTile, 600, 200, null);
 		g.drawImage(Resources.whiteTile, 600, 300, null);
+		//g.drawString("TEST", 200, 400);
 		
+	}
+	private void renderText(Graphics g){
+		g.drawString(_toRender,_where[0],_where[1]);
 	}
 }
