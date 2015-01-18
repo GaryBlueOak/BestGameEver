@@ -1,6 +1,8 @@
 package main;
 
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
@@ -70,14 +72,44 @@ public class MenuState extends State {
 
 	@Override
 	public void init() {
-		System.out.println("It is currently day " + _player.getDayNumber() + ".\nPress Enter.");
+		//System.out.println("It is currently day " + _player.getDayNumber() + ".\nPress Enter.");
 		
 	}
 
 	@Override
 	public void render(Graphics g) {
-		// TODO Auto-generated method stub
-		
+		g.setFont(new Font("Arial", Font.PLAIN, 20));
+		g.setColor(Color.WHITE);
+		g.drawRect(20, 20, 400, 50);
+		g.fillRect(20, 20, 400, 50);
+		g.setColor(Color.GREEN);
+		g.fillRect(20, 100, 150, 300);
+		g.setColor(Color.GREEN);
+		g.fillRect(200, 100, 150, 150);
+		g.setColor(Color.GREEN);
+		g.fillRect(380, 100, 150, 150);
+		g.fillRect(200, 270,100, 100);
+		g.fillRect(330, 270, 200, 130);
+		g.setColor(Color.YELLOW);
+		g.fillRect(560, 100, 150, 150);
+		g.fillRect(560, 270, 150, 130);
+		g.setColor(Color.BLACK);
+		g.drawString("Welcome to day " + _player.getDayNumber(), 30, 50);
+		g.drawString("Merchant", 55, 190);
+		g.drawString("Press up to visit", 25, 220);
+		g.drawString("Mystic", 240, 170);
+		g.drawString("Press M to visit", 210, 200);
+		g.drawString("Armory", 420, 170);
+		g.drawString("Press A to visit", 390, 200);
+		g.drawString("Battle", 600, 170);
+		g.drawString("Press space", 570, 200);
+		g.drawString("Manage Party", 570, 330);
+		g.drawString("Press Right", 570, 360);
+		g.drawString("Trainer", 400, 330);
+		g.drawString("Press Down", 370, 360);
+		g.setFont(new Font("Arial", Font.PLAIN, 16));
+		g.drawString("Black Market", 205, 320);
+		g.drawString("Press B", 205, 340);
 	}
 
 	//scout to look for other recruits
