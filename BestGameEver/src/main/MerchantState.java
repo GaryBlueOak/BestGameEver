@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -11,8 +13,10 @@ public class MerchantState extends State {
 	
 	private Item[] _goods;
 	private Player _player;
-	private int _index = -1;
+	private int _index = 0;
 	private Item _item;
+	private String _storeName;
+	private String _toPrint = "";
 	
 	public MerchantState(Player p, int merchentNumber){
 		_player = p;
@@ -31,7 +35,7 @@ public class MerchantState extends State {
 				_goods = _player.getHomeBase().getBlackMarket().getGoods();
 				break;
 		}
-		
+		_storeName = storeName;
 		System.out.println("\n/////////////////////\nWelcome to the "+ storeName + "!\nPress up and down to browse and ENTER to purchase."
 				+ "\nPress right to check funds.\nPress 'I' to see all available goods.");
 		System.out.println("Press space when you are done.");
@@ -73,8 +77,10 @@ public class MerchantState extends State {
 					_player.addItem(_item);
 					_player.setGold(_player.getGold() - _item.getCost());
 					System.out.println("You bought a " + _item.getName());
+					_toPrint = "You bought a " + _item.getName();
 				}
 				else{
+					_toPrint = "Not Enough Funds";
 					System.out.println("not enough money.");
 				}
 			}
@@ -95,7 +101,23 @@ public class MerchantState extends State {
 
 	@Override
 	public void render(Graphics g) {
-		// TODO Auto-generated method stub
+		g.fillRect(20, 20, 690, 50);
+		g.fillRect(60, 100, 650, 300);
+		//g.fillRect(x, y, width, height);
+		g.setFont(new Font("Arial", Font.PLAIN, 20));
+		g.setColor(Color.WHITE);
+		g.drawString("Welcome to the " + _storeName, 30, 50);
+		g.drawString("Available Goods:", 80, 140);
+		for(int i = 0; i < _goods.length; i ++){
+			g.drawString(_goods[i].getName(), 100 , 160 + (i*20));
+		}
+		g.fillRect(80, 148 + (20*_index), 20, 10);
+		g.drawString("Available Gold", 500, 140);
+		g.drawString(_player.getGold() + "", 500, 160);
+		g.drawString("Item Price", 500, 340);
+		g.drawString(_goods[_index].getCost() + "", 500, 360);
+		g.drawString(_toPrint, 350, 240);
+		
 		
 	}
 
