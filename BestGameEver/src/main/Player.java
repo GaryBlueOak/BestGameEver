@@ -4,17 +4,13 @@ package main;
 import java.util.ArrayList;
 
 import specialattacks.*;
-import items.*;
-
 
 public class Player {
 	private ArrayList<Character> _party;
 	private ArrayList<SpecialAttack> _specials;
-	private ArrayList<Item> _items;
 	public static int MAX_PARTY_SIZE = 4;
 	private int _gold;
 	private int _dayNumber;
-	private HomeBase _homeBase;
 	private int _experience;
 	public int difficulty;
 	//private Character[][] _battleBoard;
@@ -23,11 +19,9 @@ public class Player {
 //		_battleBoard = new Character[3][3];
 		_experience = 0;
 		_dayNumber = 0;
-		_homeBase = new HomeBase();
 		 difficulty = 0;
 		_gold = 100;
 		_specials = new ArrayList<SpecialAttack>();
-		_items = new ArrayList<Item>();
 		_party = new ArrayList<Character>();
 		_party.add(new Character("Eliwood"));
 		_party.add(new Character("Ike"));
@@ -67,20 +61,12 @@ public class Player {
 		return _gold;
 	}
 	
-	public HomeBase getHomeBase(){
-		return _homeBase;
-	}
-	
 	public void setGold(int gold){
 		_gold = gold;
 	}
 	
 	public void addSpecial(SpecialAttack s){
 		_specials.add(s);
-	}
-	
-	public void addItem(Item i){
-		_items.add(i);
 	}
 	
 	public Character[][] getBattleBoard(){
@@ -96,10 +82,6 @@ public class Player {
 	
 	public ArrayList<SpecialAttack> getSpecials(){
 		return _specials;
-	}
-	
-	public ArrayList<Item> getItems(){
-		return _items;
 	}
 	
 	public ArrayList<Character> getParty(){

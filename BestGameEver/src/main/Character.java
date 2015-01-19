@@ -2,8 +2,6 @@ package main;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
-import items.Coin;
-import items.Item;
 import specialattacks.*;
 
 public class Character {
@@ -21,8 +19,6 @@ public class Character {
 	private int _xCrd;
 	private int _yCrd;
 	private SpecialAttack _special;
-	private Item _item;
-	private Item _equipped;
 	private laser _laser;
 	private BufferedImage _laserImage;
 	private BufferedImage _image;
